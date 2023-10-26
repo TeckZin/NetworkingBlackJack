@@ -22,3 +22,9 @@ class Player():
 
     def getHouseFlag(self):
         return self.isHouse
+
+    def getCardValue(self, index):
+        card = self.playerDeck[index]
+        number = int(card[:-1])
+        return number
+
