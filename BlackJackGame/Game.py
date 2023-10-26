@@ -44,27 +44,30 @@ class Game:
 
     def checkWinner(self, playerList, houseValue):
         listValue = {}
-        houseBuss = None
+        houseBuss = False
         for x in playerList:
+            value = x.checkBestCard()
             playerNum = x.getPlayerNumber()
             if playerNum == 0:
-                houseBuss = x.checkBuss
+                houseBuss = x.checkBuss(value)
             else:
-                value = x.checkBestCard()
-                if x.checkBuss == False and houseBuss == True:
+                buss = x.checkBuss(value)
+                if buss == False and houseBuss == True:
                     listValue[playerNum] = value
-                elif x.checkBuss == True and houseBuss == True:
+                elif buss == True and houseBuss == True:
                     listValue[playerNum] = value
-                elif x.checkBuss == False and houseBuss == False:
+                elif buss == False and houseBuss == False:
 
                     if (houseValue > value):
                         listValue[0] = houseValue
 
                     elif value >= houseValue:
-                        print("here")
+
                         listValue[playerNum] = value
-                else:
+                elif buss == True and houseBuss == False:
+                    print("here")
                     listValue[0] = houseValue
+
 
         print("\33[4mWinnner is player ")
         for x, y in listValue.items():
