@@ -14,8 +14,11 @@ def hitOrStand(playerNumber, strike, player):
     for x in allPossibleValue:
         flag = player.checkBuss(x)
         if flag:
-            print("" + str(x) + ",", end="")
-        print(str(x) + ",", end="")
+            print("\033[31m" + str(x) + "\033[0m,", end="")
+        elif x == 21:
+            print("\033[32m" + str(x) + "\033[0m,", end="")
+        else:
+            print("\033[0m" + str(x) + "\033[0m,", end="")
     print()
     print(player.getPlayerDeck())
     value = str(input("hit or stand: "))
@@ -31,10 +34,23 @@ def hitOrStand(playerNumber, strike, player):
 
     return flag
 
+
+
 def houseGame(house, game):
+
     for x in house.calculateValue():
-        print(x)
+        if len(house.getPlayerDeck()) == 2 and int(x) == 21:
+            print("\33[33mRESET\33[0m")
+            house.resetHand()
+            return houseGame(house, game)
+        print(house.getPlayerDeck())
         if int(x) >= 17:
+            if int(x) == 21:
+                print("\033[32m" + str(x) + "\033[0m")
+            elif int(x) > 21:
+                print("\033[31m" + str(x) + "\033[0m")
+            else:
+                print("\033[34m" + str(x) + "\033[0m")
             return x
         else:
             card = game.GenerateCard()
@@ -60,9 +76,9 @@ for player in playersList:
         while hit:
             card = game.GenerateCard()
             player.addCard(card)
-            print(card)
+            print("\033[36m" + card + "\033[0m")
             if player.checkAllBuss():
-                print("BUST")
+                print("\033[31mBUST\033[0m")
                 break
 
             hit = hitOrStand(playerNumber, 0, player)
@@ -70,7 +86,10 @@ for player in playersList:
 
 house = playersList[0]
 
+print("\33[101mHOUSES TURN \033[0m")
 houseGame(house, game)
+
+game.checkWinner(playersList)
 
 
 

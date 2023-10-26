@@ -38,6 +38,24 @@ class Game:
                 player.addCard(card)
                 # print(player.getPlayerDeck(), player.getPlayerNumber())
 
+    def resetHand(self, player):
+        player.setPlayerDeck([])
+        for i in range(2):
+            player.addCard(self.GenerateCard())
+
+    def checkWinner(self, playerList):
+        currentWinnter = None
+        for x in playerList:
+            value = 0
+            lst = x.calculateValue()
+            for y in lst:
+                if value < y <= 21:
+                    value = y
+                    currentWinnter = x
+        print("\33[4mWinnner is player " + str(currentWinnter.getPlayerNumber()) + "\33[0m")
+
+
+
     def GenerateCard(self):
         card = self.deck.pop()
         return card

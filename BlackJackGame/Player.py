@@ -61,6 +61,9 @@ class Player():
 
         return False
 
+
+
+
     def checkBuss(self, x):
         if x > 21:
             return True
@@ -73,3 +76,7 @@ class Player():
                 return False
 
         return True
+
+    def setPlayerDeck(self, playerDeck):
+        self.playerDeck = playerDeck
+
