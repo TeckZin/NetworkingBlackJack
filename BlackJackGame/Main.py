@@ -1,4 +1,5 @@
 import Game
+import House
 
 game = Game.Game(4)
 
@@ -31,10 +32,6 @@ def hitOrStand(playerNumber, strike, player):
     return flag
 
 
-
-
-
-
 def hit(player):
     card = game.GenerateCard()
     player.addCard(card)
@@ -42,13 +39,13 @@ def hit(player):
 
 turn = 1
 
-while True:
-    playersList = game.getPlayersList()
-    flagAllPlayerBuss = True
-    for player in playersList:
-        playerNumber = player.getPlayerNumber()
-        isHouse = player.getHouseFlag()
 
+playersList = game.getPlayersList()
+flagAllPlayerBuss = True
+for player in playersList:
+    playerNumber = player.getPlayerNumber()
+    isHouse = player.getHouseFlag()
+    if not isHouse:
         hit = hitOrStand(playerNumber, 0, player)
         while hit:
             card = game.GenerateCard()
@@ -61,7 +58,17 @@ while True:
             hit = hitOrStand(playerNumber, 0, player)
 
 
+house = playersList[0]
+
+while True:
+    for x in house.calculateValue():
+
+        if x >= 17:
+            break
+        else:
+            card = game.GenerateCard()
+            house.addCard(card)
 
 
-    break
+
 

@@ -1,7 +1,7 @@
 class Player():
     playerNumber = 0
     playerTurn = False
-    playerDeck = []
+
     isHouse = False
 
     def __init__(self, playerNumber, houseFlag):
