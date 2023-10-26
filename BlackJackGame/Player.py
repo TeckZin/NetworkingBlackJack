@@ -1,6 +1,9 @@
 class Player():
     playerNumber = 0
     playerTurn = False
+    playerTwoHands = False
+    playerTwoHandsOptions = False
+
 
     isHouse = False
 
@@ -38,7 +41,7 @@ class Player():
             value = self.getCardValue(i)
             isEmpty = len(possibilities) == 0
             if isEmpty:
-                if (value == 1):
+                if value == 1:
                     possibilities.append(11)
                 possibilities.append(value)
             else:
@@ -49,6 +52,18 @@ class Player():
                         possibilities.append(sum1 + 11)
 
         return possibilities
+
+    def checkDouble(self):
+        if len(self.getPlayerDeck()) == 2:
+            card1 = str(self.playerDeck[0][:-1])
+            card2 = str(self.playerDeck[1][:-1])
+
+            if card1 == card2:
+               return True
+
+
+
+        return False
 
     def checkBuss(self, x):
         if x > 21:
@@ -62,4 +77,6 @@ class Player():
                return False
 
         return True
+
+
 

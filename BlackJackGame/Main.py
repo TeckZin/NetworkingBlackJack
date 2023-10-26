@@ -1,5 +1,5 @@
 import Game
-import House
+
 
 game = Game.Game(4)
 
@@ -46,13 +46,14 @@ for player in playersList:
     playerNumber = player.getPlayerNumber()
     isHouse = player.getHouseFlag()
     if not isHouse:
+        player.checkDouble()
         hit = hitOrStand(playerNumber, 0, player)
         while hit:
             card = game.GenerateCard()
             player.addCard(card)
             print(card)
             if player.checkAllBuss():
-                print("BUSS")
+                print("BUST")
                 break
 
             hit = hitOrStand(playerNumber, 0, player)
