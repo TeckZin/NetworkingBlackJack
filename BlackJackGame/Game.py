@@ -22,7 +22,6 @@ class Game:
             player = Player.Player(i + 1, False)
             self.playerList.append(player)
 
-
     def GenerateDeck(self):
         for i in range(len(self.houses)):
             for j in range(len(self.numbers)):
@@ -43,25 +42,39 @@ class Game:
         for i in range(2):
             player.addCard(self.GenerateCard())
 
-    def checkWinner(self, playerList):
-        currentWinnter = None
+    def checkWinner(self, playerList, houseValue):
+        listValue = {}
+        houseBuss = None
         for x in playerList:
-            value = 0
-            lst = x.calculateValue()
-            for y in lst:
-                if value < y <= 21:
-                    value = y
-                    currentWinnter = x
-        print("\33[4mWinnner is player " + str(currentWinnter.getPlayerNumber()) + "\33[0m")
+            playerNum = x.getPlayerNumber()
+            if playerNum == 0:
+                houseBuss = x.checkBuss
+            else:
+                value = x.checkBestCard()
+                if x.checkBuss == False and houseBuss == True:
+                    listValue[playerNum] = value
+                elif x.checkBuss == True and houseBuss == True:
+                    listValue[playerNum] = value
+                elif x.checkBuss == False and houseBuss == False:
 
+                    if (houseValue > value):
+                        listValue[0] = houseValue
 
+                    elif value >= houseValue:
+                        print("here")
+                        listValue[playerNum] = value
+                else:
+                    listValue[0] = houseValue
+
+        print("\33[4mWinnner is player ")
+        for x, y in listValue.items():
+            print(f"\33[0m\33[32m{x} with value of {y}")
+
+        print("\33[0m")
 
     def GenerateCard(self):
         card = self.deck.pop()
         return card
-
-
-
 
     def getPlayersList(self):
         return self.playerList
@@ -69,9 +82,5 @@ class Game:
     def printDeck(self):
         print(self.deck)
 
-
     def printAllPlayers(self):
         print(self.playerList)
-
-
-

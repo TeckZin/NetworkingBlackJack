@@ -78,7 +78,8 @@ for player in playersList:
             player.addCard(card)
             print("\033[36m" + card + "\033[0m")
             if player.checkAllBuss():
-                print("\033[31mBUST\033[0m")
+                value = player.calculateValue()
+                print(f"\033[31mBUST: {value} \033[0m")
                 break
 
             hit = hitOrStand(playerNumber, 0, player)
@@ -87,9 +88,9 @@ for player in playersList:
 house = playersList[0]
 
 print("\33[101mHOUSES TURN \033[0m")
-houseGame(house, game)
+value = houseGame(house, game)
 
-game.checkWinner(playersList)
+game.checkWinner(playersList, value)
 
 
 

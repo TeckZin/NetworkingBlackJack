@@ -62,6 +62,20 @@ class Player():
         return False
 
 
+    def checkBestCard(self):
+        idx = 0
+        value = 0
+        for x in self.calculateValue():
+            if idx == 0:
+                value = x
+            else:
+                if value < x <= 21:
+                    value = x
+
+            idx +=1
+        return value
+
+
 
 
     def checkBuss(self, x):
