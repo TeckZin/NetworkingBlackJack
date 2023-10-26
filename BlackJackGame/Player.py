@@ -4,7 +4,6 @@ class Player():
     playerTwoHands = False
     playerTwoHandsOptions = False
 
-
     isHouse = False
 
     def __init__(self, playerNumber, houseFlag):
@@ -18,7 +17,6 @@ class Player():
 
     def getPlayerDeck(self):
         return self.playerDeck
-
 
     def getPlayerNumber(self):
         return self.playerNumber
@@ -59,9 +57,7 @@ class Player():
             card2 = str(self.playerDeck[1][:-1])
 
             if card1 == card2:
-               return True
-
-
+                return True
 
         return False
 
@@ -73,10 +69,7 @@ class Player():
     def checkAllBuss(self):
 
         for x in self.calculateValue():
-           if not self.checkBuss(x):
-               return False
+            if not self.checkBuss(x):
+                return False
 
         return True
-
-
-

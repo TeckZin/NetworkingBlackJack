@@ -1,11 +1,11 @@
 import Game
 
 
-game = Game.Game(4)
+game = Game.Game(2)
 
 
 def hitOrStand(playerNumber, strike, player):
-    if (strike == 3):
+    if strike == 3:
         print("STAND")
         return False
     allPossibleValue = player.calculateValue()
@@ -27,10 +27,19 @@ def hitOrStand(playerNumber, strike, player):
         flag = False
     else:
         print(f"Invalid Strike {strike + 1}")
-        return hitOrStand(playerNumber, strike + 1)
+        return hitOrStand(playerNumber, strike + 1, player)
 
     return flag
 
+def houseGame(house, game):
+    for x in house.calculateValue():
+        print(x)
+        if int(x) >= 17:
+            return x
+        else:
+            card = game.GenerateCard()
+            house.addCard(card)
+            return houseGame(house, game)
 
 def hit(player):
     card = game.GenerateCard()
@@ -61,14 +70,8 @@ for player in playersList:
 
 house = playersList[0]
 
-while True:
-    for x in house.calculateValue():
+houseGame(house, game)
 
-        if x >= 17:
-            break
-        else:
-            card = game.GenerateCard()
-            house.addCard(card)
 
 
 
