@@ -2,7 +2,7 @@ class Player():
     playerNumber = 0
     playerTurn = False
     playerTwoHands = False
-    playerTwoHandsOptions = False
+    playerTwoHandList = [[]]
 
     isHouse = False
 
@@ -30,6 +30,11 @@ class Player():
         if number == 11 or number == 12 or number == 13:
             number = 10
         return number
+
+    def getPlayerTwoHandList(self):
+        return self.playerTwoHandList
+    def setPlayerTwoHandList(self, list):
+        self.playerTwoHandList = list
 
     def calculateValue(self):
         possibilities = []
