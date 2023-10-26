@@ -7,9 +7,14 @@ class Player():
     def __init__(self, playerNumber, houseFlag):
         self.playerNumber = playerNumber
         self.isHouse = houseFlag
+        self.playerDeck = []
+        self.playerTurn = False
 
-    def addCards(self, card):
+    def addCard(self, card):
         self.playerDeck.append(card)
+
+    def getPlayerDeck(self):
+        return self.playerDeck
 
 
     def getPlayerNumber(self):

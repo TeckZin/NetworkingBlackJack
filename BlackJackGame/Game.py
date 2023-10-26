@@ -13,6 +13,7 @@ class Game:
     def __init__(self, amountPlayers):
         self.GenerateDeck()
         self.GeneratePlayer(amountPlayers)
+        self.GeneratePlayerDeck()
 
     def GeneratePlayer(self, amountPlayers):
         house = Player.Player(0, True)
@@ -28,13 +29,18 @@ class Game:
                 self.deck.append(str(self.numbers[j]) + self.houses[i])
         random.shuffle(self.deck)
 
-    def GenerateCard(self):
-
+    def GeneratePlayerDeck(self):
         for i in range(2):
-            card = self.deck.pop()
+            # print(i)
             for player in self.playerList:
+                card = self.GenerateCard()
+                # print(card)
                 player.addCard(card)
+                # print(player.getPlayerDeck(), player.getPlayerNumber())
 
+    def GenerateCard(self):
+        card = self.deck.pop()
+        return card
 
 
 

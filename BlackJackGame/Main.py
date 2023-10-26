@@ -11,8 +11,9 @@ while True:
     for player in playersList:
         playerNumber = player.getPlayerNumber()
         isHouse = player.getHouseFlag()
+        print(player.getPlayerDeck())
 
 
 
     turn += 1
-
+    break
