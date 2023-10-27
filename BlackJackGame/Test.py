@@ -43,6 +43,8 @@ def doubleHandGame(player, game):
 
 
 def doubleHandHitStand(player):
+
+
     return 0
 
 

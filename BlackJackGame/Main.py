@@ -90,7 +90,7 @@ def doubleHandHitStand(player):
     return 0
 
 
-def hit(player, game):
+def hitCard(player, game):
     hitFlag = hitOrStand(playerNumber, 0, player)
     while hitFlag:
         card = game.GenerateCard()
@@ -116,10 +116,10 @@ for player in playersList:
             if flagDouble:
                 doubleHandHitStand()
             else:
-                hit(player, game)
+                hitCard(player, game)
 
         else:
-            hit(player, game)
+            hitCard(player, game)
 
 house = playersList[0]
 
