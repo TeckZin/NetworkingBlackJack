@@ -36,16 +36,25 @@ def doubleHandGame(player, game):
     doubleHandList.pop(0)
     player.setPlayerTwoHandList(doubleHandList)
 
-    for x in doubleHandList:
-        print(x)
+
 
     return 0
 
 
 def doubleHandHitStand(player):
 
+    print("Yout have two hands")
+    doubleHandList = player.getPlayerTwoHandList()
+    for x in doubleHandList:
+        print(x)
+
+
 
     return 0
+
+
+
+
 
 
 player2 = Player.Player(1, False)

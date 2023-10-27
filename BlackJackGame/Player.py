@@ -4,6 +4,8 @@ class Player():
     playerTwoHands = False
     playerTwoHandList = [[]]
 
+    playerDeck = None
+
     isHouse = False
 
     def __init__(self, playerNumber, houseFlag):
@@ -37,14 +39,14 @@ class Player():
     def getPlayerTwoHandList(self):
         return self.playerTwoHandList
 
-    def setPlayerTwoHandList(self, list):
-        self.playerTwoHandList = list
+    def setPlayerTwoHandList(self, lst):
+        self.playerTwoHandList = lst
 
-    def calculateValue(self):
+    def calculateValue(self, lst):
         possibilities = []
         # print(player)
 
-        for i in range(len(self.getPlayerDeck())):
+        for i in range(len(lst)):
             value = self.getCardValue(i)
             isEmpty = len(possibilities) == 0
             if isEmpty:
@@ -60,6 +62,7 @@ class Player():
 
         return possibilities
 
+
     def checkDouble(self):
         if len(self.getPlayerDeck()) == 2:
             card1 = str(self.playerDeck[0][:-1])
@@ -70,10 +73,10 @@ class Player():
 
         return False
 
-    def checkBestCard(self):
+    def checkBestCard(self, lst):
         idx = 0
         value = 0
-        for x in self.calculateValue():
+        for x in self.calculateValue(lst):
             if idx == 0:
                 value = x
             else:
@@ -88,13 +91,16 @@ class Player():
             return True
         return False
 
-    def checkAllBuss(self):
+    def checkAllBuss(self, lst):
 
-        for x in self.calculateValue():
+        for x in self.calculateValue(lst):
             if not self.checkBuss(x):
                 return False
 
         return True
+
+
+
 
     def setPlayerDeck(self, playerDeck):
         self.playerDeck = playerDeck

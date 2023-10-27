@@ -46,7 +46,7 @@ class Game:
         listValue = {}
         houseBuss = False
         for x in playerList:
-            value = x.checkBestCard()
+            value = x.checkBestCard(x.getPlayerDeck())
             playerNum = x.getPlayerNumber()
             if playerNum == 0:
                 houseBuss = x.checkBuss(value)

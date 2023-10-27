@@ -7,7 +7,7 @@ def hitOrStand(playerNumber, strike, player):
     if strike == 3:
         print("STAND")
         return False
-    allPossibleValue = player.calculateValue()
+    allPossibleValue = player.calculateValue(player.getPlayerDeck())
     print(f"Your cards player {playerNumber} -> ")
     print("all your possible values -> ", end="")
     for x in allPossibleValue:
@@ -35,7 +35,7 @@ def hitOrStand(playerNumber, strike, player):
 
 
 def houseGame(house, game):
-    for x in house.calculateValue():
+    for x in house.calculateValue(player.getPlayerDeck()):
         if len(house.getPlayerDeck()) == 2 and int(x) == 21:
             print("\33[33mRESET\33[0m")
             house.resetHand()
@@ -55,9 +55,6 @@ def houseGame(house, game):
             return houseGame(house, game)
 
 
-def hit(player):
-    card = game.GenerateCard()
-    player.addCard(card)
 
 
 def doubleHandOption(player, strike):
@@ -65,7 +62,7 @@ def doubleHandOption(player, strike):
         print("ASSUMING NO")
         return False
     else:
-        allPossibleValue = player.calculateValue()
+        allPossibleValue = player.calculateValue(player.getPlayerDeck())
         print(f"Your cards player {playerNumber} -> ")
         print("all your possible values -> ", end="")
         for x in allPossibleValue:
@@ -96,8 +93,8 @@ def hitCard(player, game):
         card = game.GenerateCard()
         player.addCard(card)
         print("\033[36m" + card + "\033[0m")
-        if player.checkAllBuss():
-            value = player.calculateValue()
+        if player.checkAllBuss(player.getPlayerDeck()):
+            value = player.calculateValue(player.getPlayerDeck())
             print(f"\033[31mBUST: {value} \033[0m")
             return True
 
