@@ -29,8 +29,8 @@ class Player():
     def getCard(self, index):
         return self.playerDeck[index]
 
-    def getCardValue(self, index):
-        card = self.playerDeck[index]
+    def getCardValue(self, index, lst):
+        card = lst[index]
         number = int(card[:-1])
         if number == 11 or number == 12 or number == 13:
             number = 10
@@ -47,7 +47,7 @@ class Player():
         # print(player)
 
         for i in range(len(lst)):
-            value = self.getCardValue(i)
+            value = self.getCardValue(i, lst)
             isEmpty = len(possibilities) == 0
             if isEmpty:
                 if value == 1:

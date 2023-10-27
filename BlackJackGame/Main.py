@@ -35,7 +35,7 @@ def hitOrStand(playerNumber, strike, player):
 
 
 def houseGame(house, game):
-    for x in house.calculateValue(player.getPlayerDeck()):
+    for x in house.calculateValue(house.getPlayerDeck()):
         if len(house.getPlayerDeck()) == 2 and int(x) == 21:
             print("\33[33mRESET\33[0m")
             house.resetHand()
