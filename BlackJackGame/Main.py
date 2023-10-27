@@ -3,11 +3,11 @@ import Game
 game = Game.Game(2)
 
 
-def hitOrStand(playerNumber, strike, player):
+def hitOrStand(playerNumber, strike, player, lstIdx):
     if strike == 3:
         print("STAND")
         return False
-    allPossibleValue = player.calculateValue(player.getPlayerDeck())
+    allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
     print(f"Your cards player {playerNumber} -> ")
     print("all your possible values -> ", end="")
     for x in allPossibleValue:
@@ -19,7 +19,7 @@ def hitOrStand(playerNumber, strike, player):
         else:
             print("\033[0m" + str(x) + "\033[0m,", end="")
     print()
-    print(player.getPlayerDeck())
+    print(player.getPlayerDeck(lstIdx))
     value = str(input("hit or stand: "))
     if value.upper() == "HIT":
         print("HIT")
@@ -29,18 +29,18 @@ def hitOrStand(playerNumber, strike, player):
         flag = False
     else:
         print(f"Invalid Strike {strike + 1}")
-        return hitOrStand(playerNumber, strike + 1, player)
+        return hitOrStand(playerNumber, strike + 1, player, lstIdx)
 
     return flag
 
 
 def houseGame(house, game):
-    for x in house.calculateValue(house.getPlayerDeck()):
-        if len(house.getPlayerDeck()) == 2 and int(x) == 21:
+    for x in house.calculateValue(house.getPlayerDeck(0)):
+        if len(house.getPlayerDeck(0)) == 2 and int(x) == 21:
             print("\33[33mRESET\33[0m")
             house.resetHand()
             return houseGame(house, game)
-        print(house.getPlayerDeck())
+        print(house.getPlayerDeck(0))
         if int(x) >= 17:
             if int(x) == 21:
                 print("\033[32m" + str(x) + "\033[0m")
@@ -51,7 +51,7 @@ def houseGame(house, game):
             return x
         else:
             card = game.GenerateCard()
-            house.addCard(card)
+            house.addCard(card, 0)
             return houseGame(house, game)
 
 
@@ -87,18 +87,19 @@ def doubleHandHitStand(player):
     return 0
 
 
-def hitCard(player, game):
-    hitFlag = hitOrStand(playerNumber, 0, player)
+def hitCard(player, game, lstIdx):
+    playerNumber = player.getPlayerNumber()
+    hitFlag = hitOrStand(playerNumber, 0, player, lstIdx)
     while hitFlag:
         card = game.GenerateCard()
-        player.addCard(card)
+        player.addCard(card, lstIdx)
         print("\033[36m" + card + "\033[0m")
-        if player.checkAllBuss(player.getPlayerDeck()):
-            value = player.calculateValue(player.getPlayerDeck())
+        if player.checkAllBuss(player.getPlayerDeck(lstIdx)):
+            value = player.calculateValue(player.getPlayerDeck(lstIdx))
             print(f"\033[31mBUST: {value} \033[0m")
             return True
 
-        hitFlag = hitOrStand(playerNumber, 0, player)
+        hitFlag = hitOrStand(playerNumber, 0, player, lstIdx)
 
 
 playersList = game.getPlayersList()
@@ -113,10 +114,10 @@ for player in playersList:
             if flagDouble:
                 doubleHandHitStand()
             else:
-                hitCard(player, game)
+                hitCard(player, game, 0)
 
         else:
-            hitCard(player, game)
+            hitCard(player, game, 0)
 
 house = playersList[0]
 

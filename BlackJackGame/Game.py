@@ -34,19 +34,19 @@ class Game:
             for player in self.playerList:
                 card = self.GenerateCard()
                 # print(card)
-                player.addCard(card)
+                player.addCard(card, 0)
                 # print(player.getPlayerDeck(), player.getPlayerNumber())
 
     def resetHand(self, player):
         player.setPlayerDeck([])
         for i in range(2):
-            player.addCard(self.GenerateCard())
+            player.addCard(self.GenerateCard(), 0)
 
     def checkWinner(self, playerList, houseValue):
         listValue = {}
         houseBuss = False
         for x in playerList:
-            value = x.checkBestCard(x.getPlayerDeck())
+            value = x.checkBestCard(x.getPlayerDeck(0))
             playerNum = x.getPlayerNumber()
             if playerNum == 0:
                 houseBuss = x.checkBuss(value)

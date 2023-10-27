@@ -14,11 +14,18 @@ class Player():
         self.playerDeck = []
         self.playerTurn = False
 
-    def addCard(self, card):
-        self.playerDeck.append(card)
+    def addCard(self, card, lstIdx):
+        if lstIdx == 0:
+            self.playerDeck.append(card)
+        else:
+            self.playerTwoHandList[lstIdx-1].append(card)
 
-    def getPlayerDeck(self):
-        return self.playerDeck
+
+    def getPlayerDeck(self, lstIdx):
+        if lstIdx == 0:
+            return self.playerDeck
+        else:
+            return self.playerTwoHandList[lstIdx-1]
 
     def getPlayerNumber(self):
         return self.playerNumber
@@ -26,8 +33,12 @@ class Player():
     def getHouseFlag(self):
         return self.isHouse
 
-    def getCard(self, index):
-        return self.playerDeck[index]
+    def getCard(self, index, lstIdx):
+        if lstIdx == 0:
+            return self.playerDeck[index]
+        else:
+            lst = self.playerTwoHandList[lstIdx-1]
+            return lst[index]
 
     def getCardValue(self, index, lst):
         card = lst[index]
@@ -64,7 +75,7 @@ class Player():
 
 
     def checkDouble(self):
-        if len(self.getPlayerDeck()) == 2:
+        if len(self.getPlayerDeck(0)) == 2:
             card1 = str(self.playerDeck[0][:-1])
             card2 = str(self.playerDeck[1][:-1])
 
