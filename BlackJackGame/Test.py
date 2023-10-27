@@ -1,4 +1,5 @@
 import Player
+import Game
 
 
 def calculateValue(player):
@@ -10,7 +11,7 @@ def calculateValue(player):
         value = player.getCardValue(i)
         isEmpty = len(possibilities) == 0
         if isEmpty:
-            if(value == 1):
+            if (value == 1):
                 possibilities.append(11)
             possibilities.append(value)
         else:
@@ -25,18 +26,44 @@ def calculateValue(player):
 
     return possibilities
 
-player = Player.Player(0,True)
+
+def doubleHandGame(player, game):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = game.GenerateCard()
+        doubleHandList.append([player.getCard(0), card])
+
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+
+    for x in doubleHandList:
+        print(x)
+
+    return 0
 
 
-player.addCard("11C")
-player.addCard("1S")
-player.addCard("1C")
+def doubleHandHitStand(player):
+    return 0
 
 
+player2 = Player.Player(1, False)
 
+player2.addCard("11c")
+player2.addCard("11c")
+game = Game.Game(2)
 
+x = doubleHandGame(player2, game)
 
-
-print(calculateValue(player))
-
-
+# player = Player.Player(0,True)
+#
+#
+# player.addCard("11C")
+# player.addCard("1S")
+# player.addCard("1C")
+#
+#
+#
+#
+#
+#
+# print(calculateValue(player))

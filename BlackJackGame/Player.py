@@ -24,6 +24,9 @@ class Player():
     def getHouseFlag(self):
         return self.isHouse
 
+    def getCard(self, index):
+        return self.playerDeck[index]
+
     def getCardValue(self, index):
         card = self.playerDeck[index]
         number = int(card[:-1])
@@ -33,6 +36,7 @@ class Player():
 
     def getPlayerTwoHandList(self):
         return self.playerTwoHandList
+
     def setPlayerTwoHandList(self, list):
         self.playerTwoHandList = list
 
@@ -66,7 +70,6 @@ class Player():
 
         return False
 
-
     def checkBestCard(self):
         idx = 0
         value = 0
@@ -77,11 +80,8 @@ class Player():
                 if value < x <= 21:
                     value = x
 
-            idx +=1
+            idx += 1
         return value
-
-
-
 
     def checkBuss(self, x):
         if x > 21:
@@ -98,4 +98,3 @@ class Player():
 
     def setPlayerDeck(self, playerDeck):
         self.playerDeck = playerDeck
-

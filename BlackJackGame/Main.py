@@ -86,9 +86,22 @@ def doubleHandOption(player, strike):
         return doubleHandOption(player, strike + 1)
 
 
-
-def doubleHandHitStand():
+def doubleHandHitStand(player):
     return 0
+
+
+def hit(player, game):
+    hitFlag = hitOrStand(playerNumber, 0, player)
+    while hitFlag:
+        card = game.GenerateCard()
+        player.addCard(card)
+        print("\033[36m" + card + "\033[0m")
+        if player.checkAllBuss():
+            value = player.calculateValue()
+            print(f"\033[31mBUST: {value} \033[0m")
+            return True
+
+        hitFlag = hitOrStand(playerNumber, 0, player)
 
 
 playersList = game.getPlayersList()
@@ -97,23 +110,16 @@ for player in playersList:
     playerNumber = player.getPlayerNumber()
     isHouse = player.getHouseFlag()
     if not isHouse:
+
         if player.checkDouble():
             flagDouble = doubleHandOption(player, 0)
             if flagDouble:
                 doubleHandHitStand()
+            else:
+                hit(player, game)
 
         else:
-            hit = hitOrStand(playerNumber, 0, player)
-            while hit:
-                card = game.GenerateCard()
-                player.addCard(card)
-                print("\033[36m" + card + "\033[0m")
-                if player.checkAllBuss():
-                    value = player.calculateValue()
-                    print(f"\033[31mBUST: {value} \033[0m")
-                    break
-
-                hit = hitOrStand(playerNumber, 0, player)
+            hit(player, game)
 
 house = playersList[0]
 
