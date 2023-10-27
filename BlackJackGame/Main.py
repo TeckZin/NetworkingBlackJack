@@ -73,12 +73,6 @@ def doubleHandOption(player, strike):
         return True
     else:
         return doubleHandOption(player, strike + 1)
-def doubleHand(player):
-    if not player.playerTwoHands:
-        lst = player.getPlayerTwoHandList()
-
-        for i in range(2):
-            lst[i].append([player.getCardValue(0)])
 
 
 
@@ -93,24 +87,18 @@ for player in playersList:
     isHouse = player.getHouseFlag()
     if not isHouse:
 
-        if player.checkDouble():
-            doubleHand = doubleHandOption(player, 0)
 
-        if doubleHand:
-            doubleHand(player)
+        hit = hitOrStand(playerNumber, 0, player)
+        while hit:
+            card = game.GenerateCard()
+            player.addCard(card)
+            print("\033[36m" + card + "\033[0m")
+            if player.checkAllBuss():
+                value = player.calculateValue()
+                print(f"\033[31mBUST: {value} \033[0m")
+                break
 
-        else:
             hit = hitOrStand(playerNumber, 0, player)
-            while hit:
-                card = game.GenerateCard()
-                player.addCard(card)
-                print("\033[36m" + card + "\033[0m")
-                if player.checkAllBuss():
-                    value = player.calculateValue()
-                    print(f"\033[31mBUST: {value} \033[0m")
-                    break
-
-                hit = hitOrStand(playerNumber, 0, player)
 
 house = playersList[0]
 
