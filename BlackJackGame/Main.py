@@ -65,6 +65,17 @@ def doubleHandOption(player, strike):
         print("ASSUMING NO")
         return False
     else:
+        allPossibleValue = player.calculateValue()
+        print(f"Your cards player {playerNumber} -> ")
+        print("all your possible values -> ", end="")
+        for x in allPossibleValue:
+            flag = player.checkBuss(x)
+            if flag:
+                print("\033[31m" + str(x) + "\033[0m,", end="")
+            elif x == 21:
+                print("\033[32m" + str(x) + "\033[0m,", end="")
+            else:
+                print("\033[0m" + str(x) + "\033[0m,", end="")
         answer = str(input("Do you want to split your hands [y/n]: "))
     if answer.upper() == "N":
         return False
@@ -76,9 +87,9 @@ def doubleHandOption(player, strike):
 
 
 
+def doubleHandHitStand():
+    return 0
 
-
-turn = 1
 
 playersList = game.getPlayersList()
 flagAllPlayerBuss = True
@@ -86,19 +97,23 @@ for player in playersList:
     playerNumber = player.getPlayerNumber()
     isHouse = player.getHouseFlag()
     if not isHouse:
+        if player.checkDouble():
+            flagDouble = doubleHandOption(player, 0)
+            if flagDouble:
+                doubleHandHitStand()
 
-
-        hit = hitOrStand(playerNumber, 0, player)
-        while hit:
-            card = game.GenerateCard()
-            player.addCard(card)
-            print("\033[36m" + card + "\033[0m")
-            if player.checkAllBuss():
-                value = player.calculateValue()
-                print(f"\033[31mBUST: {value} \033[0m")
-                break
-
+        else:
             hit = hitOrStand(playerNumber, 0, player)
+            while hit:
+                card = game.GenerateCard()
+                player.addCard(card)
+                print("\033[36m" + card + "\033[0m")
+                if player.checkAllBuss():
+                    value = player.calculateValue()
+                    print(f"\033[31mBUST: {value} \033[0m")
+                    break
+
+                hit = hitOrStand(playerNumber, 0, player)
 
 house = playersList[0]
 
