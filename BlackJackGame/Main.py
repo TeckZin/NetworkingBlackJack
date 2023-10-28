@@ -83,8 +83,27 @@ def doubleHandOption(player, strike):
         return doubleHandOption(player, strike + 1)
 
 
+def doubleHandSplit(player, game):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = game.GenerateCard()
+        doubleHandList.append([player.getCard(0,0), card])
+
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+    print(doubleHandList)
+    doubleHandHitStand(player)
+
+
 def doubleHandHitStand(player):
-    return 0
+    print("You have two hands")
+    doubleHandList = player.getPlayerTwoHandList()
+    idx = 1
+    for x in doubleHandList:
+        print(f"your {idx} hand: ")
+        print(x)
+        hitCard(player2, game, idx)
+        idx += 1
 
 
 def hitCard(player, game, lstIdx):
@@ -112,7 +131,7 @@ for player in playersList:
         if player.checkDouble():
             flagDouble = doubleHandOption(player, 0)
             if flagDouble:
-                doubleHandHitStand()
+                doubleHandHitStand(player)
             else:
                 hitCard(player, game, 0)
 

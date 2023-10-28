@@ -93,7 +93,7 @@ def doubleHandHitStand(player):
         print(f"your {idx} hand: ")
         print(x)
         hitCard(player2, game, idx)
-        idx += 2
+        idx += 1
 
 
 player2 = Player.Player(1, False)
