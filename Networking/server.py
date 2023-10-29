@@ -19,7 +19,7 @@ while True:
     message = cs.recv(1024)
     print(message)
 
-    cs.send(bytes('hi', 'utf-8'))
+    cs.send(bytes('Accept', 'utf-8'))
 
 cs.close()
 s.close()
