@@ -102,7 +102,7 @@ def doubleHandHitStand(player):
     for x in doubleHandList:
         print(f"your {idx} hand: ")
         print(x)
-        hitCard(player2, game, idx)
+        hitCard(player, game, idx)
         idx += 1
 
 
