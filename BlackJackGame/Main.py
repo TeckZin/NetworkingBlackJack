@@ -147,3 +147,5 @@ print("\33[101mHOUSES TURN \033[0m")
 value = houseGame(house, game)
 
 game.checkWinner(playersList, value)
+
+print("open")
