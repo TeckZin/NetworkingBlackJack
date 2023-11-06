@@ -1,7 +1,8 @@
+import Player
 
 
-
-class Packet:
+class PacketPlayer:
+    player: Player
     deck = [str]
     hit = False
     perviousDeck = []
@@ -25,5 +26,10 @@ class Packet:
 
     def setHit(self, hit: bool):
         self.hit = hit
+
+    def setPlayer(self, player: Player):
+        self.player = player
+
+
 
 
