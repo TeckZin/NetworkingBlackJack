@@ -14,16 +14,18 @@ while True:
     sockFile.listen(30)
 
     # addr = ip, cs is the data == client socket
-    cs, addr = sockFile.accept()
+    while True:
+        cs, addr = sockFile.accept()
 
-    print(addr)
+        print(addr)
 
-    dataString = cs.recv(1024)
-    packet = pickle.loads(dataString)
-    print(packet.hit)
+        dataString = cs.recv(1024)
+        packet = pickle.loads(dataString)
+        print(packet.hit)
+
+        cs.send(bytes('Accept', 'utf-8'))
+        cs.close()
 
 
-    cs.send(bytes('Accept', 'utf-8'))
 
-cs.close()
 s.close()
