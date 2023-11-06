@@ -2,14 +2,7 @@ import Game
 
 game = Game.Game(2)
 
-
-def hitOrStand(playerNumber, strike, player, lstIdx):
-    if strike == 3:
-        print("STAND")
-        return False
-    allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
-    print(f"Your cards player {playerNumber} -> ")
-    print("all your possible values -> ", end="")
+def printAllValue(allPossibleValue):
     for x in allPossibleValue:
         flag = player.checkBuss(x)
         if flag:
@@ -19,6 +12,15 @@ def hitOrStand(playerNumber, strike, player, lstIdx):
         else:
             print("\033[0m" + str(x) + "\033[0m,", end="")
 
+
+def hitOrStand(playerNumber, strike, player, lstIdx):
+    if strike == 3:
+        print("STAND")
+        return False
+    allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
+    print(f"Your cards player {playerNumber} -> ")
+    print("all your possible values -> ", end="")
+    printAllValue(allPossibleValue)
 
 
     print()
@@ -68,14 +70,7 @@ def doubleHandOption(player, strike):
         allPossibleValue = player.calculateValue(player.getPlayerDeck())
         print(f"Your cards player {playerNumber} -> ")
         print("all your possible values -> ", end="")
-        for x in allPossibleValue:
-            flag = player.checkBuss(x)
-            if flag:
-                print("\033[31m" + str(x) + "\033[0m,", end="")
-            elif x == 21:
-                print("\033[32m" + str(x) + "\033[0m,", end="")
-            else:
-                print("\033[0m" + str(x) + "\033[0m,", end="")
+        printAllValue(allPossibleValue)
         answer = str(input("Do you want to split your hands [y/n]: "))
     if answer.upper() == "N":
         return False

@@ -1,4 +1,6 @@
-import socket
+import socket, pickle
+from BlackJackGame import Packet
+
 
 sockFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -16,8 +18,9 @@ while True:
 
     print(addr)
 
-    message = cs.recv(1024)
-    print(message)
+    dataString = cs.recv(1024)
+    packet = pickle.loads(dataString)
+
 
     cs.send(bytes('Accept', 'utf-8'))
 

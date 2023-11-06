@@ -1,5 +1,5 @@
-import socket
-
+import socket, pickle
+from BlackJackGame import Packet
 
 def inputRequest(strike):
     if strike == 3:
@@ -20,8 +20,11 @@ flag = inputRequest(0)
 while flag:
     clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     clientSocketFile.connect((host, port))
+    packet = Packet.Packet(True)
+    packet.setHit(True)
+    dataString = pickle.dumps(packet)
+    clientSocketFile.send(dataString)
 
-    clientSocketFile.sendall(b'Ready')
 
     print(clientSocketFile.recv(50))
     flag = inputRequest(0)
