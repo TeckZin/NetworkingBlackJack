@@ -20,6 +20,7 @@ while True:
 
     dataString = cs.recv(1024)
     packet = pickle.loads(dataString)
+    print(packet.hit)
 
 
     cs.send(bytes('Accept', 'utf-8'))
