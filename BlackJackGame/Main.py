@@ -18,6 +18,9 @@ def hitOrStand(playerNumber, strike, player, lstIdx):
             print("\033[32m" + str(x) + "\033[0m,", end="")
         else:
             print("\033[0m" + str(x) + "\033[0m,", end="")
+
+
+
     print()
     print(player.getPlayerDeck(lstIdx))
     value = str(input("hit or stand: "))
