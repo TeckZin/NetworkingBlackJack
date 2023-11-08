@@ -21,4 +21,4 @@ port = 1234
 answer = str(input("Connect: "))
 if answer.upper() == "Y":
     packet = PacketPlayer.PacketPlayer(True)
-    self.sentPacket(ip, port, packet)
+    sentPacket(ip, port, packet)
