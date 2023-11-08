@@ -1,6 +1,6 @@
 import Game
-
-class GameMain():
+from Networking import ComputerServer
+class GameMain(mainServer):
     def __init__(self, amountOfPlayers):
         game = Game.Game(amountOfPlayers)
 
@@ -25,6 +25,7 @@ class GameMain():
         value = self.houseGame(house, game)
 
         game.checkWinner(playersList, value)
+
 
 
 

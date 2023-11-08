@@ -1,5 +1,3 @@
-from math import floor
-
 import random as random
 import Player
 
@@ -45,13 +43,13 @@ class Game:
     def checkWinner(self, playerList, houseValue):
         listValue = {}
         houseBuss = False
-        for x in playerList:
-            value = x.checkBestCard(x.getPlayerDeck(0))
-            playerNum = x.getPlayerNumber()
+        for player in playerList:
+            value = player.checkBestCard(player.getPlayerDeck(0))
+            playerNum = player.getPlayerNumber()
             if playerNum == 0:
-                houseBuss = x.checkBuss(value)
+                houseBuss = player.checkBuss(value)
             else:
-                buss = x.checkBuss(value)
+                buss = player.checkBuss(value)
                 if buss == False and houseBuss == True:
                     listValue[playerNum] = value
                 elif buss == True and houseBuss == True:
@@ -70,8 +68,8 @@ class Game:
 
 
         print("\33[4mWinnner is player ")
-        for x, y in listValue.items():
-            print(f"\33[0m\33[32m{x} with value of {y}")
+        for player, y in listValue.items():
+            print(f"\33[0m\33[32m{player} with value of {y}")
 
         print("\33[0m")
 
