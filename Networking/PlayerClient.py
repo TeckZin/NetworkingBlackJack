@@ -2,23 +2,25 @@ import socket, pickle
 from BlackJackGame import PacketPlayer
 
 
-def sentPacket(self, host, port, packet):
-    clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientSocketFile.connect((host, port))
+class PlayerClient():
+    host = str
+    port = int
 
-    dataString = pickle.dumps(packet)
-    clientSocketFile.send(dataString)
+    def __init__(self, host, port):
+        self.host = host
+        self.port = port
 
-    print(clientSocketFile.recv(50))
+    def sentPacket(self, packet: PacketPlayer):
+        clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        clientSocketFile.connect((self.host, self.port))
 
-    clientSocketFile.close()
+        dataString = pickle.dumps(packet)
+        clientSocketFile.send(dataString)
 
+        print(clientSocketFile.recv(50))
 
-# ip = str(input("Ip Address: "))
-ip = socket.gethostname()
-port = 1234
+        clientSocketFile.close()
+        pass
 
-answer = str(input("Connect: "))
-if answer.upper() == "Y":
-    packet = PacketPlayer.PacketPlayer(True)
-    sentPacket(ip, port, packet)
+    # ip = str(input("Ip Address: "))
+

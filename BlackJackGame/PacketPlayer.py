@@ -1,13 +1,16 @@
-import Player
+from BlackJackGame import Player
 
 
 class PacketPlayer:
-    player: Player
-    deck = [str]
-    hit = False
-    perviousDeck = []
+    player = Player
 
-    def __init__(self, tf: bool):
+
+    ip = str
+    port = int
+
+    def __init__(self, tf: bool, ip: str, port: int):
+        self.ip = ip
+        self.port = port
         if tf:
             self.housePacket()
         else:
@@ -19,17 +22,10 @@ class PacketPlayer:
     def playerPacket(self) -> bool:
         return False
 
-    def setDeck(self, deck: list[str]):
-        self.perviousDeck = self.deck
-        self.deck = deck
-
-
-    def setHit(self, hit: bool):
-        self.hit = hit
-
     def setPlayer(self, player: Player):
         self.player = player
 
-
+    def getIp(self) -> str:
+        return self.ip
 
 

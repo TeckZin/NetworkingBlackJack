@@ -1,5 +1,6 @@
 import random as random
-import Player
+from BlackJackGame import Player, PacketPlayer
+
 
 
 class Game:
@@ -8,18 +9,15 @@ class Game:
     deck = []
     playerList = []
 
-    def __init__(self, amountPlayers):
+
+
+    def __init__(self, amountPlayers, playerList):
+        self.playerList = playerList
         self.GenerateDeck()
-        self.GeneratePlayer(amountPlayers)
+
         self.GeneratePlayerDeck()
 
-    def GeneratePlayer(self, amountPlayers):
-        house = Player.Player(0, True)
-        self.playerList.append(house)
-        for i in range(amountPlayers):
-            player = Player.Player(i + 1, False)
-            self.playerList.append(player)
-
+        # need soem fixing
     def GenerateDeck(self):
         for i in range(len(self.houses)):
             for j in range(len(self.numbers)):

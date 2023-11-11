@@ -10,3 +10,8 @@ from BlackJackGame import PacketPlayer
 #def sendingpck para: packet
 
 
+
+def sentMessage(message, ip, port):
+    pass
+
+

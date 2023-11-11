@@ -8,24 +8,31 @@ class Player():
 
     isHouse = False
 
-    def __init__(self, playerNumber, houseFlag):
-        self.playerNumber = playerNumber
+    ip = str
+    port = int
+
+    def __init__(self, houseFlag, ip, port):
+
         self.isHouse = houseFlag
         self.playerDeck = []
         self.playerTurn = False
+
+    def setPlayerNumber(self, playerNumber):
+        self.playerNumber = playerNumber
+
+
 
     def addCard(self, card, lstIdx):
         if lstIdx == 0:
             self.playerDeck.append(card)
         else:
-            self.playerTwoHandList[lstIdx-1].append(card)
-
+            self.playerTwoHandList[lstIdx - 1].append(card)
 
     def getPlayerDeck(self, lstIdx):
         if lstIdx == 0:
             return self.playerDeck
         else:
-            return self.playerTwoHandList[lstIdx-1]
+            return self.playerTwoHandList[lstIdx - 1]
 
     def getPlayerNumber(self):
         return self.playerNumber
@@ -37,7 +44,7 @@ class Player():
         if lstIdx == 0:
             return self.playerDeck[index]
         else:
-            lst = self.playerTwoHandList[lstIdx-1]
+            lst = self.playerTwoHandList[lstIdx - 1]
             return lst[index]
 
     def getCardValue(self, index, lst):
@@ -72,7 +79,6 @@ class Player():
                         possibilities.append(sum1 + 11)
 
         return possibilities
-
 
     def checkDouble(self):
         if len(self.getPlayerDeck(0)) == 2:
@@ -109,9 +115,6 @@ class Player():
                 return False
 
         return True
-
-
-
 
     def setPlayerDeck(self, playerDeck):
         self.playerDeck = playerDeck

@@ -1,8 +1,8 @@
-import Game
+from BlackJackGame import Game
 from Networking import ComputerServer
 class GameMain():
-    def __init__(self, amountOfPlayers):
-        game = Game.Game(amountOfPlayers)
+    def __init__(self, amountOfPlayers, playerList):
+        game = Game.Game(amountOfPlayers, playerList)
 
         playersList = game.getPlayersList()
         for player in playersList:
