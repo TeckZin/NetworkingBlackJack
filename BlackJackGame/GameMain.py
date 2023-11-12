@@ -1,5 +1,7 @@
 from BlackJackGame import Game
 from Networking import ComputerServer
+
+
 class GameMain():
     def __init__(self, amountOfPlayers, playerList):
         game = Game.Game(amountOfPlayers, playerList)
@@ -26,35 +28,41 @@ class GameMain():
 
         game.checkWinner(playersList, value)
 
-
-
-
-
-
-
-
     def printAllValue(self, allPossibleValue, player):
+        output = ""
         for x in allPossibleValue:
             flag = player.checkBuss(x)
             if flag:
                 print("\033[31m" + str(x) + "\033[0m,", end="")
+                output += "\033[31m" + str(x) + "\033[0m,"
             elif x == 21:
                 print("\033[32m" + str(x) + "\033[0m,", end="")
+                output += "\033[32m" + str(x) + "\033[0m,"
+
             else:
                 print("\033[0m" + str(x) + "\033[0m,", end="")
+                output += "\033[0m" + str(x) + "\033[0m,"
 
+        return output
 
     def hitOrStand(self, playerNumber, strike, player, lstIdx):
+
+        output = ""
         if strike == 3:
             print("STAND")
             return False
         allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
         print(f"Your cards player {playerNumber} -> ")
+
+        output += f"Your cards player {playerNumber} -> \n"
+
+
         print("all your possible values -> ", end="")
-        self.printAllValue(allPossibleValue, player)
 
+        output += "all your possible values -> "
 
-        print()
+        output += self.printAllValue(allPossibleValue, player)
+
         print(player.getPlayerDeck(lstIdx))
         value = str(input("hit or stand: "))
         if value.upper() == "HIT":
@@ -68,7 +76,6 @@ class GameMain():
             return self.hitOrStand(playerNumber, strike + 1, player, lstIdx)
 
         return flag
-
 
     def houseGame(self, house, game):
         for x in house.calculateValue(house.getPlayerDeck(0)):
@@ -90,9 +97,6 @@ class GameMain():
                 house.addCard(card, 0)
                 return self.houseGame(house, game)
 
-
-
-
     def doubleHandOption(self, player, strike):
         if strike == 3:
             print("ASSUMING NO")
@@ -111,18 +115,16 @@ class GameMain():
         else:
             return self.doubleHandOption(player, strike + 1)
 
-
-    def doubleHandSplitsel (self, player, game):
+    def doubleHandSplitsel(self, player, game):
         doubleHandList = player.getPlayerTwoHandList()
         for i in range(len(doubleHandList) + 1):
             card = game.GenerateCard()
-            doubleHandList.append([player.getCard(0,0), card])
+            doubleHandList.append([player.getCard(0, 0), card])
 
         doubleHandList.pop(0)
         player.setPlayerTwoHandList(doubleHandList)
         print(doubleHandList)
         self.doubleHandHitStand(player, game)
-
 
     def doubleHandHitStand(self, player, game):
         print("You have two hands")
@@ -133,7 +135,6 @@ class GameMain():
             print(x)
             self.hitCard(player, game, idx)
             idx += 1
-
 
     def hitCard(self, player, game, lstIdx):
         playerNumber = player.getPlayerNumber()
@@ -148,9 +149,3 @@ class GameMain():
                 return True
 
             hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx)
-
-
-
-
-
-

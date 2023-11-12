@@ -11,11 +11,19 @@ class Player():
     ip = str
     port = int
 
-    def __init__(self, houseFlag, ip, port):
-
+    def __init__(self, houseFlag, playerNumber, ip, port):
+        self.playerNumber = playerNumber
+        self.ip = ip
+        self.port = port
         self.isHouse = houseFlag
         self.playerDeck = []
         self.playerTurn = False
+
+    def getIp(self):
+        return self.ip
+
+    def getPort(self):
+        return self.port
 
     def setPlayerNumber(self, playerNumber):
         self.playerNumber = playerNumber
