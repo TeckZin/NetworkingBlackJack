@@ -1,5 +1,4 @@
 import socket, pickle
-from BlackJackGame import PacketPlayer
 
 
 class PlayerClient():
@@ -10,17 +9,14 @@ class PlayerClient():
         self.host = host
         self.port = port
 
-    def sentPacket(self, packet: PacketPlayer):
+    def sentPacket(self, packet: str):
         clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         clientSocketFile.connect((self.host, self.port))
 
-        dataString = pickle.dumps(packet)
-        clientSocketFile.send(dataString)
+        clientSocketFile.sendall(bytes(packet.encode('utf-8')))
 
         print(clientSocketFile.recv(50))
 
         clientSocketFile.close()
 
-
     # ip = str(input("Ip Address: "))
-

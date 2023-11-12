@@ -1,18 +1,16 @@
 import socket, pickle
-from BlackJackGame import PacketPlayer, GameMain, Player
+from BlackJackGame import GameMain, Player
 
 
 class ComputerServer():
-    playerPacketList = []
+    playerList = []
     gameStart = False
     gameMain = GameMain
 
     def __init__(self):
         self.startGame()
         if self.gameStart:
-           self.listenToMessage(1235)
-
-
+            self.listenToMessage(1235)
 
     def startGame(self):
 
@@ -31,22 +29,18 @@ class ComputerServer():
             amountOfPlayers = 0
             house = Player.Player(True, socket.gethostname(), port)
             house.setPlayerNumber(0)
-            self.playerPacketList.append(house)
+            self.playerList.append(house)
 
             while True:
                 cs, addr = sockFile.accept()
 
                 print(addr)
 
-                dataString = cs.recv(1024)
-                amountOfPlayers += 1
-                packet.setPlayerNumber(amountOfPlayers)
-
-                packet = pickle.loads(dataString)
-
-                print(packet)
-
-                self.playerPacketList.append(packet)
+                command = cs.recv(1024).decode()
+                match command:
+                    case "Start":
+                        amountOfPlayers += 1
+                        self.generatePlayer(amountOfPlayers, addr, 1234)
 
                 cs.send(bytes('Accept', 'utf-8'))
                 cs.close()
@@ -54,15 +48,16 @@ class ComputerServer():
                 answer = str(input("Ready to start: "))
 
                 if answer.upper() == "Y" and 1 <= amountOfPlayers <= 7:
-                    self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerPacketList)
+                    self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerList)
                     self.gameStart = True
                     sockFile.close()
                 else:
                     print("Player excceeded quit or too less")
                     sockFile.close()
 
-
-
+    def generatePlayer(self, playerAmount, ip, port):
+        player = Player.Player(False, playerAmount, ip, port)
+        self.playerList.append(player)
 
     def listenToMessage(self, port):
         socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -73,13 +68,5 @@ class ComputerServer():
             while True:
                 cs, addr = socketServer.accept()
 
-
-
-
-
     def getGameMain(self):
         return self.gameMain
-
-
-
-
