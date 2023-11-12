@@ -1,6 +1,6 @@
 import Game
 from Networking import ComputerServer
-class GameMain(mainServer):
+class GameMain():
     def __init__(self, amountOfPlayers):
         game = Game.Game(amountOfPlayers)
 
