@@ -1,9 +1,9 @@
 import socket, pickle
-from BlackJackGame import PacketPlayer, GameMain
+from BlackJackGame import Player, GameMain
 
 
-class mainSever():
-    playerList = list[PacketPlayer]
+class ComputerServer():
+    playerList = []
 
     def __init__(self):
         sockFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -26,13 +26,6 @@ class GameMain():
 
         game.checkWinner(playersList, value)
 
-
-
-
-
-
-
-
     def printAllValue(self, allPossibleValue, player):
         for x in allPossibleValue:
             flag = player.checkBuss(x)
