@@ -20,7 +20,7 @@ class PlayerClient():
         print(clientSocketFile.recv(50))
 
         clientSocketFile.close()
-        pass
+
 
     # ip = str(input("Ip Address: "))
 

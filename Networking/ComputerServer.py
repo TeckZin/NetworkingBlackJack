@@ -4,8 +4,18 @@ from BlackJackGame import PacketPlayer, GameMain, Player
 
 class ComputerServer():
     playerPacketList = []
+    gameStart = False
+    gameMain = GameMain
 
     def __init__(self):
+        self.startGame()
+        if self.gameStart:
+           self.listenToMessage(1235)
+
+
+
+    def startGame(self):
+
         global packet
         sockFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -36,8 +46,6 @@ class ComputerServer():
 
                 print(packet)
 
-
-
                 self.playerPacketList.append(packet)
 
                 cs.send(bytes('Accept', 'utf-8'))
@@ -45,13 +53,33 @@ class ComputerServer():
 
                 answer = str(input("Ready to start: "))
 
-
                 if answer.upper() == "Y" and 1 <= amountOfPlayers <= 7:
-                    self.startGame(amountOfPlayers, self.playerPacketList)
+                    self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerPacketList)
+                    self.gameStart = True
                     sockFile.close()
                 else:
                     print("Player excceeded quit or too less")
                     sockFile.close()
 
-    def startGame(self, amountOfPlayers, playerList):
-        GameMain.GameMain(amountOfPlayers + 1, playerList)
+
+
+
+    def listenToMessage(self, port):
+        socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        socketServer.bind(('', port))
+
+        while True:
+            socketServer.listen(30)
+            while True:
+                cs, addr = socketServer.accept()
+
+
+
+
+
+    def getGameMain(self):
+        return self.gameMain
+
+
+
+
