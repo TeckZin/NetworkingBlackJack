@@ -1,5 +1,25 @@
-import socket, pickle
+import socket
 from BlackJackGame import GameMain, Player
+
+
+def listenToMessageHitorStand(port):
+    socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    socketServer.bind(('', port))
+
+    while True:
+        socketServer.listen(30)
+
+        cs, addr = socketServer.accept()
+
+        message = socketServer.recv(30)
+        cs.close()
+        socketServer.close()
+        if message.upper() == "HIT":
+            print("HIT")
+            return True
+        elif message.upper() == "STAND":
+            print("STAND")
+            return False
 
 
 class ComputerServer():
@@ -9,8 +29,7 @@ class ComputerServer():
 
     def __init__(self):
         self.startGame()
-        if self.gameStart:
-            self.listenToMessage(1235)
+
 
     def startGame(self):
 
@@ -19,7 +38,7 @@ class ComputerServer():
 
         port = 1234
 
-        sockFile.bind(('', port))
+        sockFile.bind(('', 1234))
 
         print(socket.gethostname())
 
@@ -27,8 +46,8 @@ class ComputerServer():
         while True:
             sockFile.listen(30)
             amountOfPlayers = 0
-            house = Player.Player(True, socket.gethostname(), port)
-            house.setPlayerNumber(0)
+            house = Player.Player(True, amountOfPlayers+1, socket.gethostname(), port)
+
             self.playerList.append(house)
 
             while True:
@@ -59,14 +78,10 @@ class ComputerServer():
         player = Player.Player(False, playerAmount, ip, port)
         self.playerList.append(player)
 
-    def listenToMessage(self, port):
-        socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        socketServer.bind(('', port))
 
-        while True:
-            socketServer.listen(30)
-            while True:
-                cs, addr = socketServer.accept()
+
 
     def getGameMain(self):
         return self.gameMain
+
+

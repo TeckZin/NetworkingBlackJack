@@ -1,5 +1,5 @@
 from BlackJackGame import Game
-from Networking import ComputerServer
+from Networking import ComputerServer, ClientComputer
 
 
 class GameMain():
@@ -52,18 +52,23 @@ class GameMain():
             print("STAND")
             return False
         allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
-        print(f"Your cards player {playerNumber} -> ")
+        # print(f"Your cards player {playerNumber} -> ")
 
         output += f"Your cards player {playerNumber} -> \n"
 
-
-        print("all your possible values -> ", end="")
+        # print("all your possible values -> ", end="")
 
         output += "all your possible values -> "
 
         output += self.printAllValue(allPossibleValue, player)
 
-        print(player.getPlayerDeck(lstIdx))
+        output += player.getPlayerDeck(lstIdx)
+
+        print(output)
+        clientComputer.sentMessage(output, player.getIp(), player.getPort())
+
+
+        # get resutlt forom player
         value = str(input("hit or stand: "))
         if value.upper() == "HIT":
             print("HIT")

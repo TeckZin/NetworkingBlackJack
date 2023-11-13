@@ -23,12 +23,6 @@ class PlayeServer():
             else:
                 print("\033[0m" + str(x) + "\033[0m,", end="")
 
-    def __init__(self, port):
-        self.runTCP(port)
-        # TCP
-        # diff port num
-
-
     def runTCP(self, port):
         socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -40,17 +34,16 @@ class PlayeServer():
             while True:
                 cs, addr = socketServer.accept()
 
-
                 message = socketServer.recv(30)
 
-
-
-
-
-
-
-
                 # keep writing
+
+    def __init__(self, port):
+        self.runTCP(port)
+        # TCP
+        # diff port num
+
+
 
 
 
