@@ -13,7 +13,7 @@ def listenToMessageHitorStand(port):
 
         message = socketServer.recv(30)
 
-        message = message.decode('utf-8')
+        message = str(message.decode('utf-8'))
 
         cs.close()
 
