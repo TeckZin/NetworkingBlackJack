@@ -2,22 +2,22 @@ import random as random
 from BlackJackGame import Player
 
 
-
-class Game:
+class Game():
     houses = ["D", "C", "H", "S"]
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     deck = []
     playerList = []
-
-
+    amountPlayers = 0
 
     def __init__(self, amountPlayers, playerList):
+        self.amountPlayers = amountPlayers
         self.playerList = playerList
         self.GenerateDeck()
 
         self.GeneratePlayerDeck()
 
         # need soem fixing
+
     def GenerateDeck(self):
         for i in range(len(self.houses)):
             for j in range(len(self.numbers)):
@@ -63,7 +63,6 @@ class Game:
                 elif buss == True and houseBuss == False:
                     print("here")
                     listValue[0] = houseValue
-
 
         print("\33[4mWinnner is player ")
         for player, y in listValue.items():
