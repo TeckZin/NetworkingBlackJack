@@ -1,22 +1,17 @@
 import socket, pickle
 
 
-class PlayerClient():
-    host = str
-    port = int
 
-    def __init__(self, host, port):
-        self.host = host
-        self.port = port
+def sendPacket(message: str, host, port):
+    clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientSocketFile.connect((host, port))
 
-    def sentPacket(self, packet: str):
-        clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        clientSocketFile.connect((self.host, self.port))
+    clientSocketFile.sendall(bytes(message.encode('utf-8')))
 
-        clientSocketFile.sendall(bytes(packet.encode('utf-8')))
+    print(clientSocketFile.recv(50))
 
-        print(clientSocketFile.recv(50))
-
-        clientSocketFile.close()
+    clientSocketFile.close()
 
     # ip = str(input("Ip Address: "))
+
+

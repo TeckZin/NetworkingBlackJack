@@ -1,27 +1,22 @@
-import socket, pickle
-
-
+import socket
+from Networking import PlayerClient
 
 
 class PlayeServer():
 
-
-    def doubleHandOptionPlayer(self, player):
-        allPossibleValue = player.calculateValue(player.getPlayerDeck())
-        print(f"Your cards player {player.getPlayerNumber()} -> ")
-        print("all your possible values -> ", end="")
-        self.printAllValue(allPossibleValue, player)
-        answer = str(input("Do you want to split your hands [y/n]: "))
-
-    def printAllValue(self, allPossibleValue, player):
-        for x in allPossibleValue:
-            flag = player.checkBuss(x)
-            if flag:
-                print("\033[31m" + str(x) + "\033[0m,", end="")
-            elif x == 21:
-                print("\033[32m" + str(x) + "\033[0m,", end="")
-            else:
-                print("\033[0m" + str(x) + "\033[0m,", end="")
+    def hitOrStand(self, strike):
+        if strike == 3:
+            return "False"
+        value = str(input("hit or stand: "))
+        if value.upper() == "HIT":
+            print("HIT")
+            return "True"
+        elif value.upper() == "STAND":
+            print("STAND")
+            return "False"
+        else:
+            print(f"Invalid Strike {strike + 1}")
+            return self.hitOrStand(strike + 1)
 
     def runTCP(self, port):
         socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -36,20 +31,16 @@ class PlayeServer():
 
                 message = socketServer.recv(30)
 
-                # keep writing
+                match message:
+                    case "HitStand":
+                        PlayerClient.sendPacket(self.hitOrStand(1), addr, port)
+                        cs.close()
+                        break
+
+
+                        # keep writing
 
     def __init__(self, port):
         self.runTCP(port)
         # TCP
         # diff port num
-
-
-
-
-
-
-
-
-
-
-

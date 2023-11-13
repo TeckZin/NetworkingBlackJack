@@ -1,5 +1,5 @@
 from BlackJackGame import Game
-from Networking import ComputerServer, ClientComputer
+from Networking import ClientComputer
 
 
 class GameMain():
@@ -65,7 +65,9 @@ class GameMain():
         output += player.getPlayerDeck(lstIdx)
 
         print(output)
-        clientComputer.sentMessage(output, player.getIp(), player.getPort())
+
+
+        ClientComputer.sentMessage(output, player.getIp(), player.getPort())
 
 
         # get resutlt forom player

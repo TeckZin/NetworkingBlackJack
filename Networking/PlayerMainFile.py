@@ -1,11 +1,9 @@
 import socket
 from Networking import PlayerClient, PlayerServer
 
+# Comp to player -> port 1234
 
-#Comp to player -> port 1234
-
-#player to Comp -> port 1234
-
+# player to Comp -> port 1234
 
 
 ip = socket.gethostname()
@@ -16,10 +14,6 @@ port = 1234
 
 answer = str(input("Connect: "))
 if answer.upper() == "Y":
-    playerClient = PlayerClient.PlayerClient()
-
-    playerClient.sentPacket("Start")
+    PlayerClient.sentPacket("Start")
 
     PlayerServer.PlayeServer(1234)
-
-
