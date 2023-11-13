@@ -1,4 +1,4 @@
-import socket, pickle
+import socket
 from Networking import ComputerServer
 
 
