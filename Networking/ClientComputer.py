@@ -2,7 +2,7 @@ import socket
 from Networking import ComputerServer
 
 
-# data get get send from GameMain to here to be sent of
+# data get send from GameMain to here to be sent of
 
 
 # func
@@ -11,4 +11,13 @@ from Networking import ComputerServer
 
 
 def sentMessage(message, ip, port):
+    clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    clientSocket.connect((ip, port))
+
+    clientSocket.sendall(bytes(message.encode('utf-8')))
+
+    returnMessage = clientSocket.recv(50)
+
+    clientSocket.close()
+
     return ComputerServer.listenToMessageHitorStand(port)

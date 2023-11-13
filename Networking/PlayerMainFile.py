@@ -14,6 +14,6 @@ port = 1234
 
 answer = str(input("Connect: "))
 if answer.upper() == "Y":
-    PlayerClient.sentPacket("Start")
+    PlayerClient.sendPacket("Start", ip, port)
 
     PlayerServer.PlayeServer(1234)

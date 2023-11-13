@@ -66,9 +66,7 @@ class GameMain():
 
         print(output)
 
-
         ClientComputer.sentMessage(output, player.getIp(), player.getPort())
-
 
         # get resutlt forom player
         value = str(input("hit or stand: "))
@@ -85,15 +83,22 @@ class GameMain():
         return flag
 
     def houseGame(self, house, game):
+
+        output = ""
         for x in house.calculateValue(house.getPlayerDeck(0)):
             if len(house.getPlayerDeck(0)) == 2 and int(x) == 21:
                 print("\33[33mRESET\33[0m")
+
+
+
                 house.resetHand()
                 return self.houseGame(house, game)
             print(house.getPlayerDeck(0))
             if int(x) >= 17:
                 if int(x) == 21:
                     print("\033[32m" + str(x) + "\033[0m")
+
+
                 elif int(x) > 21:
                     print("\033[31m" + str(x) + "\033[0m")
                 else:
@@ -122,8 +127,7 @@ class GameMain():
             output += self.printAllValue(allPossibleValue, player)
             print(output)
 
-
-            #send message
+            # send message
             answer = str(input("Do you want to split your hands [y/n]: "))
         if answer.upper() == "N":
             return False

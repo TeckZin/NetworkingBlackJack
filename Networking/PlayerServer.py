@@ -31,6 +31,8 @@ class PlayeServer():
 
                 message = socketServer.recv(30)
 
+                message = message.decode("utf-8")
+
                 match message:
                     case "HitStand":
                         PlayerClient.sendPacket(self.hitOrStand(1), addr, port)

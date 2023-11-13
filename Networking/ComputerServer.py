@@ -12,8 +12,13 @@ def listenToMessageHitorStand(port):
         cs, addr = socketServer.accept()
 
         message = socketServer.recv(30)
+
+        message = message.decode('utf-8')
+
         cs.close()
+
         socketServer.close()
+
         if message.upper() == "HIT":
             print("HIT")
             return True
