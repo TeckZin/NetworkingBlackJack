@@ -40,6 +40,10 @@ class Game():
 
     def checkWinner(self, playerList, houseValue):
         listValue = {}
+
+        output = ""
+
+
         houseBuss = False
         for player in playerList:
             value = player.checkBestCard(player.getPlayerDeck(0))
@@ -52,9 +56,10 @@ class Game():
                     listValue[playerNum] = value
                 elif buss == True and houseBuss == True:
                     listValue[playerNum] = value
+
                 elif buss == False and houseBuss == False:
 
-                    if (houseValue > value):
+                    if houseValue > value:
                         listValue[0] = houseValue
 
                     elif value >= houseValue:
