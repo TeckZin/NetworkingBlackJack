@@ -33,14 +33,14 @@ class GameMain():
         for x in allPossibleValue:
             flag = player.checkBuss(x)
             if flag:
-                print("\033[31m" + str(x) + "\033[0m,", end="")
+                # print("\033[31m" + str(x) + "\033[0m,", end="")
                 output += "\033[31m" + str(x) + "\033[0m,"
             elif x == 21:
-                print("\033[32m" + str(x) + "\033[0m,", end="")
+                # print("\033[32m" + str(x) + "\033[0m,", end="")
                 output += "\033[32m" + str(x) + "\033[0m,"
 
             else:
-                print("\033[0m" + str(x) + "\033[0m,", end="")
+                # print("\033[0m" + str(x) + "\033[0m,", end="")
                 output += "\033[0m" + str(x) + "\033[0m,"
 
         return output
@@ -109,10 +109,21 @@ class GameMain():
             print("ASSUMING NO")
             return False
         else:
+
+            output = ""
             allPossibleValue = player.calculateValue(player.getPlayerDeck())
-            print(f"Your cards player {player.getPlayerNumber()} -> ")
-            print("all your possible values -> ", end="")
-            self.printAllValue(allPossibleValue, player)
+            # print(f"Your cards player {player.getPlayerNumber()} -> ")
+
+            output += f"Your cards player {player.getPlayerNumber()} -> \n"
+
+            # print("all your possible values -> ", end="")
+
+            output += "all your possible values -> "
+            output += self.printAllValue(allPossibleValue, player)
+            print(output)
+
+
+            #send message
             answer = str(input("Do you want to split your hands [y/n]: "))
         if answer.upper() == "N":
             return False
