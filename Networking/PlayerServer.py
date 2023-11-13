@@ -35,7 +35,7 @@ class PlayeServer():
 
                 match message:
                     case "HitStand":
-                        PlayerClient.sendPacket(self.hitOrStand(1), addr, port)
+                        cs.send(bytes(self.hitOrStand(message), 'utf-8'))
                         cs.close()
                         break
 

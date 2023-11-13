@@ -62,7 +62,7 @@ class GameMain():
 
         output += self.printAllValue(allPossibleValue, player)
 
-        output += player.getPlayerDeck(lstIdx)
+        output += str(player.getPlayerDeck(lstIdx))
 
         print(output)
 

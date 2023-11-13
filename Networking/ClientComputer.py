@@ -21,4 +21,4 @@ def sentMessage(message, ip, port):
     clientSocket.close()
     # maybe could use this to get the hit or stand
 
-    return ComputerServer.listenToMessageHitorStand(port)
+    return returnMessage
