@@ -42,10 +42,10 @@ class GameMain():
             else:
                 # print("\033[0m" + str(x) + "\033[0m,", end="")
                 output += "\033[0m" + str(x) + "\033[0m,"
-
+        print(output)
         return output
 
-    def hitOrStand(self, playerNumber, strike, player, lstIdx):
+    def hitOrStand(self, playerNumber, strike, player, lstIdx, game):
 
         output = ""
         if strike == 3:
@@ -62,47 +62,51 @@ class GameMain():
 
         output += self.printAllValue(allPossibleValue, player)
 
-        output += str(player.getPlayerDeck(lstIdx))
+        output += "\n" + str(player.getPlayerDeck(lstIdx))
 
         print(output)
 
-        ClientComputer.sentMessage(output, player.getIp(), player.getPort())
+        messageFlag = ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "HITORSTAND")
+        generalMessage = ""
+
+        if messageFlag == "True":
+            generalMessage = output + "HIT"
+            ClientComputer.sentToALL(generalMessage, game.getPlayersList)
+            return True
+
+        generalMessage = output + "STAND"
+
+        ClientComputer.sentToALL(generalMessage, game.getPlayersList)
+
+        return False
 
         # get resutlt forom player
-        value = str(input("hit or stand: "))
-        if value.upper() == "HIT":
-            print("HIT")
-            flag = True
-        elif value.upper() == "STAND":
-            print("STAND")
-            flag = False
-        else:
-            print(f"Invalid Strike {strike + 1}")
-            return self.hitOrStand(playerNumber, strike + 1, player, lstIdx)
-
-        return flag
 
     def houseGame(self, house, game):
 
         output = ""
         for x in house.calculateValue(house.getPlayerDeck(0)):
             if len(house.getPlayerDeck(0)) == 2 and int(x) == 21:
-                print("\33[33mRESET\33[0m")
-
-
-
+                # print("\33[33mRESET\33[0m")
+                output += "\33[33mRESET\33[0m\n"
                 house.resetHand()
                 return self.houseGame(house, game)
             print(house.getPlayerDeck(0))
             if int(x) >= 17:
                 if int(x) == 21:
-                    print("\033[32m" + str(x) + "\033[0m")
+                    # print("\033[32m" + str(x) + "\033[0m")
+                    output += "\033[32m" + str(x) + "\033[0m\n"
+
 
 
                 elif int(x) > 21:
-                    print("\033[31m" + str(x) + "\033[0m")
+                    # print("\033[31m" + str(x) + "\033[0m")
+                    output += "\033[31m" + str(x) + "\033[0m\n"
                 else:
-                    print("\033[34m" + str(x) + "\033[0m")
+                    # print("\033[34m" + str(x) + "\033[0m")
+                    output += "\033[34m" + str(x) + "\033[0m\n"
+                print(output)
+                ClientComputer.sentToALL(output, game.getPlayer())
                 return x
             else:
                 card = game.GenerateCard()
@@ -128,6 +132,8 @@ class GameMain():
             print(output)
 
             # send message
+
+            ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "YORN")
             answer = str(input("Do you want to split your hands [y/n]: "))
         if answer.upper() == "N":
             return False
@@ -149,18 +155,22 @@ class GameMain():
         self.doubleHandHitStand(player, game)
 
     def doubleHandHitStand(self, player, game):
-        print("You have two hands")
+        output = "You have two hands"
         doubleHandList = player.getPlayerTwoHandList()
         idx = 1
         for x in doubleHandList:
-            print(f"your {idx} hand: ")
-            print(x)
+            # print(f"your {idx} hand: ")
+            # print(x)
+
+            output += f"your {idx} hand: \n" + str(x) + "\n"
             self.hitCard(player, game, idx)
             idx += 1
 
+        ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+        print(output)
     def hitCard(self, player, game, lstIdx):
         playerNumber = player.getPlayerNumber()
-        hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx)
+        hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)
         while hitFlag:
             card = game.GenerateCard()
             player.addCard(card, lstIdx)
@@ -170,4 +180,4 @@ class GameMain():
                 print(f"\033[31mBUST: {value} \033[0m")
                 return True
 
-            hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx)
+            hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)

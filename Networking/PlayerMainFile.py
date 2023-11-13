@@ -16,4 +16,4 @@ answer = str(input("Connect: "))
 if answer.upper() == "Y":
     PlayerClient.sendPacket("Start", ip, 1234)
 
-    PlayerServer.PlayeServer(1235)
+    PlayerServer.PlayerServer(1235)

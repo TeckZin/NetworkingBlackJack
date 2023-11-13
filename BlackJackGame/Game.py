@@ -1,5 +1,4 @@
 import random as random
-from BlackJackGame import Player
 
 
 class Game():
@@ -43,7 +42,6 @@ class Game():
 
         output = ""
 
-
         houseBuss = False
         for player in playerList:
             value = player.checkBestCard(player.getPlayerDeck(0))
@@ -66,7 +64,7 @@ class Game():
 
                         listValue[playerNum] = value
                 elif buss == True and houseBuss == False:
-                    print("here")
+                    # print("here")
                     listValue[0] = houseValue
 
         print("\33[4mWinnner is player ")
