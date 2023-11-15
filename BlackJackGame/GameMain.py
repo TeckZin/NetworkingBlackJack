@@ -14,7 +14,7 @@ class GameMain():
                 if player.checkDouble():
                     flagDouble = self.doubleHandOption(player, 0)
                     if flagDouble:
-                        self.doubleHandHitStand(player, game)
+                        self.doubleHandSplit(player, game)
                     else:
                         self.hitCard(player, game, 0)
 
@@ -182,6 +182,8 @@ class GameMain():
             output += "\033[36m" + card + "\033[0m\n"
             if player.checkAllBuss(player.getPlayerDeck(lstIdx)):
                 value = player.calculateValue(player.getPlayerDeck(lstIdx))
+                output += str(player.getPlayerDeck(lstIdx))
+                output += "\n"
                 # print(f"\033[31mBUST: {value} \033[0m")
                 output += f"\033[31mBUST: {value} \033[0m\n"
                 ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")

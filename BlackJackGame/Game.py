@@ -48,7 +48,7 @@ class Game():
 
             value = player.checkBestCard(player.getPlayerDeck(0))
             playerNum = player.getPlayerNumber()
-
+            print(value)
             if playerNum == 0:
                 houseBuss = player.checkBuss(value)
             else:
