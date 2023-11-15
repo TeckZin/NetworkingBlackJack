@@ -44,7 +44,6 @@ class PlayerServer():
         END = False
         while not END:
 
-
             socketServer.listen(1000)
 
             cs, addr = socketServer.accept()
@@ -62,12 +61,10 @@ class PlayerServer():
                 cs.sendall(bytes('ACK'.encode('utf-8')))
                 cs.close()
 
-
             if YESORNO:
                 YESORNO = False
                 cs.sendall(self.YESORNO(0, message).encode('utf-8'))
                 cs.close()
-
 
             if WINNER:
                 WINNER = False
@@ -76,8 +73,6 @@ class PlayerServer():
                 cs.sendall(bytes('ACK'.encode('utf-8')))
                 cs.close()
                 socketServer.close()
-
-
 
             match message:
                 case "NONE":
@@ -100,8 +95,7 @@ class PlayerServer():
                     cs.sendall(bytes('ACK'.encode('utf-8')))
                     cs.close()
 
-
-                        # keep writing
+                    # keep writing
 
     def __init__(self, port):
         self.runTCP(port)
