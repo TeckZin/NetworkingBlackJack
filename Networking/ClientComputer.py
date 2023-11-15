@@ -8,6 +8,9 @@ import socket
 # def sendingpck para: packet
 
 # loop to send messages to all players
+
+
+# add exception into tht func for certain players
 def sentToALL(message, playersList, command):
     print(playersList)
     idx = 0

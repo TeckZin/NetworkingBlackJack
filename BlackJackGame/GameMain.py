@@ -106,7 +106,6 @@ class GameMain():
                     output += "\033[34m" + str(x) + "\033[0m\n"
                 print(output)
 
-
                 ClientComputer.sentToALL(output, game.getPlayersList(), "NONE")
                 return x
             else:
@@ -150,7 +149,7 @@ class GameMain():
         doubleHandList.pop(0)
         player.setPlayerTwoHandList(doubleHandList)
         output = str(doubleHandList)
-        ClientComputer.sentMessage(output, player.getIp(), player.getPort(),"NONE")
+        ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         self.doubleHandHitStand(player, game)
 
     def doubleHandHitStand(self, player, game):
