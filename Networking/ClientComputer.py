@@ -18,7 +18,7 @@ def sentToALL(message, playersList, command, playerNumber):
     for player in playersList:
         print(idx)
         print(player.getPlayerNumber(), player.getHouseFlag())
-        if idx == 0:
+        if idx == 0 or idx == playerNumber:
             pass
         else:
             sentMessage(message, player.getIp(), player.getPort(), command)
