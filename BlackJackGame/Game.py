@@ -1,6 +1,5 @@
 import random as random
 
-
 class Game():
     houses = ["D", "C", "H", "S"]
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
@@ -67,11 +66,20 @@ class Game():
                     # print("here")
                     listValue[0] = houseValue
 
-        print("\33[4mWinnner is player ")
-        for player, y in listValue.items():
-            print(f"\33[0m\33[32m{player} with value of {y}")
+        # print("\33[4mWinnner is player ")
 
-        print("\33[0m")
+        output += "\33[4mWinnner is player \n"
+        for player, y in listValue.items():
+
+            # print(f"\33[0m\33[32m{player} with value of {y}")
+            output += f"\33[0m\33[32m{player} with value of {y}\n"
+
+        # print("\33[0m")
+        output += f"\33[0m\n"
+        print(output)
+        return output
+
+
 
     def GenerateCard(self):
         card = self.deck.pop()

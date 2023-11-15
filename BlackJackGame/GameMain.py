@@ -26,7 +26,8 @@ class GameMain():
         print("\33[101mHOUSES TURN \033[0m")
         value = self.houseGame(house, game)
 
-        game.checkWinner(playersList, value)
+        message = game.checkWinner(playersList, value)
+        ClientComputer.sentToALL(message, playerList, "END")
 
     def printAllValue(self, allPossibleValue, player):
         output = ""
@@ -106,7 +107,7 @@ class GameMain():
                 print(output)
 
 
-                ClientComputer.sentToALL(output, game.getPlayersList(), "END")
+                ClientComputer.sentToALL(output, game.getPlayersList(), "NONE")
                 return x
             else:
                 card = game.GenerateCard()
@@ -153,7 +154,7 @@ class GameMain():
         self.doubleHandHitStand(player, game)
 
     def doubleHandHitStand(self, player, game):
-        output = "You have two hands"
+        output = "You have two hands\n"
         doubleHandList = player.getPlayerTwoHandList()
         idx = 1
         for x in doubleHandList:
@@ -175,11 +176,11 @@ class GameMain():
             card = game.GenerateCard()
             player.addCard(card, lstIdx)
             # print("\033[36m" + card + "\033[0m")
-            output += "\033[36m" + card + "\033[0m"
+            output += "\033[36m" + card + "\033[0m\n"
             if player.checkAllBuss(player.getPlayerDeck(lstIdx)):
                 value = player.calculateValue(player.getPlayerDeck(lstIdx))
                 # print(f"\033[31mBUST: {value} \033[0m")
-                output += f"\033[31mBUST: {value} \033[0m"
+                output += f"\033[31mBUST: {value} \033[0m\n"
                 ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
                 print(output)
                 return True
