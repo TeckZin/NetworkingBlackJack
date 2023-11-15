@@ -71,12 +71,12 @@ class GameMain():
 
         if messageFlag == "True":
             generalMessage = output + "HIT"
-            ClientComputer.sentToALL(generalMessage, game.getPlayersList)
+            ClientComputer.sentToALL(generalMessage, game.getPlayersList())
             return True
 
         generalMessage = output + "STAND"
 
-        ClientComputer.sentToALL(generalMessage, game.getPlayersList)
+        ClientComputer.sentToALL(generalMessage, game.getPlayersList())
 
         return False
 
@@ -97,8 +97,6 @@ class GameMain():
                     # print("\033[32m" + str(x) + "\033[0m")
                     output += "\033[32m" + str(x) + "\033[0m\n"
 
-
-
                 elif int(x) > 21:
                     # print("\033[31m" + str(x) + "\033[0m")
                     output += "\033[31m" + str(x) + "\033[0m\n"
@@ -106,7 +104,7 @@ class GameMain():
                     # print("\033[34m" + str(x) + "\033[0m")
                     output += "\033[34m" + str(x) + "\033[0m\n"
                 print(output)
-                ClientComputer.sentToALL(output, game.getPlayer())
+                ClientComputer.sentToALL(output, game.getPlayersList())
                 return x
             else:
                 card = game.GenerateCard()
@@ -140,7 +138,6 @@ class GameMain():
             elif answer.upper() == "Y":
                 return True
 
-
     def doubleHandSplit(self, player, game):
         doubleHandList = player.getPlayerTwoHandList()
         for i in range(len(doubleHandList) + 1):
@@ -166,6 +163,7 @@ class GameMain():
 
         ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         print(output)
+
     def hitCard(self, player, game, lstIdx):
         playerNumber = player.getPlayerNumber()
         hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)

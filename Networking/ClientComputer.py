@@ -1,6 +1,4 @@
 import socket
-from BlackJackGame import Player
-
 
 # data get send from GameMain to here to be sent of
 
@@ -11,9 +9,14 @@ from BlackJackGame import Player
 
 # loop to send messages to all players
 def sentToALL(message, playersList):
+    print(playersList)
+    idx = 0
     for player in playersList:
-        if not player.isHouse():
+        if idx != 0:
             sentMessage(message, player.getIp(), player.getPort(), "NONE")
+
+        idx += 1
+
 
 
 def sentMessage(message, ip, port, command):
