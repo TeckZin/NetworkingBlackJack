@@ -1,4 +1,3 @@
-
 from BlackJackGame import Game
 from Networking import ClientComputer
 
@@ -6,7 +5,6 @@ from Networking import ClientComputer
 class GameMain():
     def __init__(self, amountOfPlayers, playerList):
         game = Game.Game(amountOfPlayers, playerList)
-
 
         playersList = game.getPlayersList()
         for player in playersList:
@@ -29,6 +27,7 @@ class GameMain():
         value = self.houseGame(house, game)
 
         message = game.checkWinner(playersList, value)
+        print(message)
         ClientComputer.sentToALL(message, playerList, "END", 0)
 
     def printAllValue(self, allPossibleValue, player):
@@ -70,7 +69,6 @@ class GameMain():
         print(output)
 
         messageFlag = ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "HITORSTAND")
-        generalMessage = ""
 
         if messageFlag == "True":
             generalMessage = output + "HIT"
@@ -78,7 +76,7 @@ class GameMain():
             return True
 
         generalMessage = output + "STAND"
-
+        print(generalMessage)
         ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
 
         return False
@@ -151,7 +149,9 @@ class GameMain():
         doubleHandList.pop(0)
         player.setPlayerTwoHandList(doubleHandList)
         output = str(doubleHandList)
+
         ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+        print(output)
         self.doubleHandHitStand(player, game)
 
     def doubleHandHitStand(self, player, game):
