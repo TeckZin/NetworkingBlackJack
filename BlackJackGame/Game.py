@@ -1,24 +1,20 @@
 import random as random
-import Player
 
-
-class Game:
+class Game():
     houses = ["D", "C", "H", "S"]
     numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     deck = []
     playerList = []
+    amountPlayers = 0
 
-    def __init__(self, amountPlayers):
+    def __init__(self, amountPlayers, playerList):
+        self.amountPlayers = amountPlayers
+        self.playerList = playerList
         self.GenerateDeck()
-        self.GeneratePlayer(amountPlayers)
+
         self.GeneratePlayerDeck()
 
-    def GeneratePlayer(self, amountPlayers):
-        house = Player.Player(0, True)
-        self.playerList.append(house)
-        for i in range(amountPlayers):
-            player = Player.Player(i + 1, False)
-            self.playerList.append(player)
+        # need soem fixing
 
     def GenerateDeck(self):
         for i in range(len(self.houses)):
@@ -42,6 +38,9 @@ class Game:
 
     def checkWinner(self, playerList, houseValue):
         listValue = {}
+
+        output = ""
+
         houseBuss = False
         for player in playerList:
             value = player.checkBestCard(player.getPlayerDeck(0))
@@ -54,24 +53,33 @@ class Game:
                     listValue[playerNum] = value
                 elif buss == True and houseBuss == True:
                     listValue[playerNum] = value
+
                 elif buss == False and houseBuss == False:
 
-                    if (houseValue > value):
+                    if houseValue > value:
                         listValue[0] = houseValue
 
                     elif value >= houseValue:
 
                         listValue[playerNum] = value
                 elif buss == True and houseBuss == False:
-                    print("here")
+                    # print("here")
                     listValue[0] = houseValue
 
+        # print("\33[4mWinnner is player ")
 
-        print("\33[4mWinnner is player ")
+        output += "\33[4mWinnner is player \n"
         for player, y in listValue.items():
-            print(f"\33[0m\33[32m{player} with value of {y}")
 
-        print("\33[0m")
+            # print(f"\33[0m\33[32m{player} with value of {y}")
+            output += f"\33[0m\33[32m{player} with value of {y}\n"
+
+        # print("\33[0m")
+        output += f"\33[0m\n"
+        print(output)
+        return output
+
+
 
     def GenerateCard(self):
         card = self.deck.pop()

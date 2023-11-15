@@ -117,3 +117,19 @@ import Game
 #
 #
 # print(calculateValue(player))
+
+output =  ""
+
+playerNumber = 1
+# print(f"Your cards player {playerNumber} -> ")
+
+output += f"Your cards player {playerNumber} -> \n"
+
+# print("all your possible values -> ", end="")
+
+output += "all your possible values -> "
+
+output += "Hello"
+
+
+print(output)
