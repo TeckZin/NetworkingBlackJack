@@ -15,6 +15,8 @@ def listenToMessageHitorStand(port):
 
         message = str(message.decode('utf-8'))
 
+        cs.sendall(bytes('ACK'.encode('utf-8')))
+
         cs.close()
 
         socketServer.close()
