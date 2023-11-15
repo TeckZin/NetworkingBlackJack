@@ -58,6 +58,10 @@ class ComputerServer():
             cs, addr = sockFile.accept()
 
             print(addr)
+            print(type(addr))
+
+            addr = socket.gethostname() # str()
+            print(type(addr))
 
             command = cs.recv(1024).decode()
             match command:
@@ -71,12 +75,18 @@ class ComputerServer():
             answer = str(input("Ready to start: "))
 
             if answer.upper() == "Y" and 1 <= amountOfPlayers <= 7:
+
+                sockFile.close()
                 self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerList)
                 self.gameStart = True
+
+            elif amountOfPlayers > 7:
+                print("Player exceeded quit or too less")
                 sockFile.close()
-            else:
-                print("Player excceeded quit or too less")
-                sockFile.close()
+
+                break
+
+
 
     def generatePlayer(self, playerAmount, ip, port):
         player = Player.Player(False, playerAmount, ip, port)

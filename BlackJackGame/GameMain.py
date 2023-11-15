@@ -133,17 +133,15 @@ class GameMain():
 
             # send message
 
-            ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "YORN")
-            answer = str(input("Do you want to split your hands [y/n]: "))
-        if answer.upper() == "N":
-            return False
+            answer = ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "YORN")
+            # answer = str(input("Do you want to split your hands [y/n]: "))
+            if answer.upper() == "N":
+                return False
+            elif answer.upper() == "Y":
+                return True
 
-        elif answer.upper() == "Y":
-            return True
-        else:
-            return self.doubleHandOption(player, strike + 1)
 
-    def doubleHandSplitsel(self, player, game):
+    def doubleHandSplit(self, player, game):
         doubleHandList = player.getPlayerTwoHandList()
         for i in range(len(doubleHandList) + 1):
             card = game.GenerateCard()

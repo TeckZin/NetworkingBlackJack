@@ -18,21 +18,26 @@ def sentToALL(message, playersList):
 
 def sentMessage(message, ip, port, command):
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    clientSocket.connect((ip, port))
-
+    clientSocket.connect((ip, 1235))
+    print("connected")
     clientSocket.sendall(bytes(command.encode('utf-8')))
+    print(command)
+    ACKORNACK = str(clientSocket.recv(50).decode())
+    print(ACKORNACK)
 
-    ACKORNACK = clientSocket.recv(50)
+
+
+
 
     clientSocket.close()
 
     if ACKORNACK == "ACK":
         clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        clientSocket.connect((ip, port))
+        clientSocket.connect((ip, 1235))
 
         clientSocket.sendall(bytes(message.encode('utf-8')))
 
-        returnMessage = clientSocket.recv(50)
+        returnMessage = str(clientSocket.recv(50).decode())
 
         clientSocket.close()
 

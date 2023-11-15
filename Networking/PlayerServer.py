@@ -3,32 +3,41 @@ import socket
 
 class PlayerServer():
 
-
     def YESORNO(self, strike, message):
         print(message)
 
-
+        if strike == 3:
+            return 'N'
+        value = str(input("Yes or No:"))
+        if value.upper() == "Y":
+            return 'Y'
+        elif value.upper() == 'N':
+            return 'N'
+        message = f"Invalid strike number {strike}"
+        return self.YESORNO(strike + 1, message)
 
     def hitOrStand(self, strike, message):
         print(message)
         if strike == 3:
-            return "False"
+            return 'False'
         value = str(input("hit or stand: "))
         if value.upper() == "HIT":
             print("HIT")
-            return "True"
+            return 'True'
         elif value.upper() == "STAND":
             print("STAND")
-            return "False"
+            return 'False'
         else:
-            print(f"Invalid Strike {strike + 1}")
-            return self.hitOrStand(strike + 1, "")
+            message = f"Invalid Strike {strike + 1}"
+            return self.hitOrStand(strike + 1, message)
 
     def runTCP(self, port):
         HITORSTAND = False
         NONE = False
         YESORNO = False
         socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        # port = 1235
+        print(port)
 
         socketServer.bind(('', port))
 
@@ -38,46 +47,42 @@ class PlayerServer():
             while True:
                 cs, addr = socketServer.accept()
 
-                message = socketServer.recv(30)
+                message = str(cs.recv(30).decode())
 
-                message = str(message.decode("utf-8"))
+
 
                 if HITORSTAND:
                     HITORSTAND = False
-                    cs.send(bytes(self.hitOrStand(0, message), 'utf-8'))
+                    cs.sendall(bytes(self.hitOrStand(0, message).encode('utf-8')))
                     cs.close()
                     break
                 if NONE:
                     NONE = False
-                    cs.send(bytes("ACK", 'utf-8'))
+                    cs.sendall(bytes('ACK'.encode('utf-8')))
                     cs.close()
                     break
                 if YESORNO:
                     YESORNO = False
                     break
 
-
                 match message:
                     case "NONE":
-                        cs.send(bytes("ACK", 'utf-8'))
+                        cs.sendall(bytes('ACK'.encode('utf-8')))
                         cs.close()
                         NONE = True
                         break
-                    case "HitStand":
-                        cs.send(bytes("ACK", 'utf-8'))
+                    case "HITORSTAND":
+                        cs.sendall(bytes('ACK'.encode('utf-8')))
                         cs.close()
                         HITORSTAND = True
                         break
                     case "YORN":
                         YESORNO = True
-                        cs.send(bytes("ACK", 'utf-8'))
+                        cs.sendall(bytes('ACK'.encode('utf-8')))
                         cs.close()
                         break
 
-
-
                         # keep writing
-
 
     def __init__(self, port):
         self.runTCP(port)
