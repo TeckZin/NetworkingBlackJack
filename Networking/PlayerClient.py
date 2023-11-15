@@ -1,7 +1,6 @@
 import socket
 
 
-
 def sendPacket(message: str, host, port):
     clientSocketFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     clientSocketFile.connect((host, port))
@@ -13,5 +12,3 @@ def sendPacket(message: str, host, port):
     clientSocketFile.close()
 
     # ip = str(input("Ip Address: "))
-
-

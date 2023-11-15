@@ -47,7 +47,7 @@ class PlayerServer():
             while True:
                 cs, addr = socketServer.accept()
 
-                message = str(cs.recv(30).decode())
+                message = str(cs.recv(1000).decode())
 
 
 
