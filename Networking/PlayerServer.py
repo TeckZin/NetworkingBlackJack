@@ -35,13 +35,14 @@ class PlayerServer():
         HITORSTAND = False
         NONE = False
         YESORNO = False
+        WINNER = False
         socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # port = 1235
         print(port)
 
         socketServer.bind(('', port))
-
-        while True:
+        END = False
+        while not END:
             socketServer.listen(1000)
 
             while True:
@@ -58,12 +59,27 @@ class PlayerServer():
                     break
                 if NONE:
                     NONE = False
+                    print(message)
                     cs.sendall(bytes('ACK'.encode('utf-8')))
                     cs.close()
                     break
+
+
                 if YESORNO:
                     YESORNO = False
+                    cs.sendall(self.YESORNO(0, message).encode('utf-8'))
+                    cs.close()
                     break
+
+                if WINNER:
+                    WINNER = False
+                    END = True
+                    print(message)
+                    cs.sendall(bytes('ACK'.encode('utf-8')))
+                    cs.close()
+                    socketServer.close()
+                    break
+
 
                 match message:
                     case "NONE":
@@ -81,6 +97,20 @@ class PlayerServer():
                         cs.sendall(bytes('ACK'.encode('utf-8')))
                         cs.close()
                         break
+                    case "END":
+                        WINNER = True
+                        cs.sendall(bytes('ACK'.encode('utf-8')))
+                        cs.close()
+                        break
+                    case _:
+                        END = True
+                        print(message)
+                        cs.sendall(bytes('NAK'.encode('utf-8')))
+                        cs.close()
+                        socketServer.close()
+                        break
+
+
 
                         # keep writing
 

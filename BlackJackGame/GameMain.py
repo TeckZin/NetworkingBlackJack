@@ -71,12 +71,12 @@ class GameMain():
 
         if messageFlag == "True":
             generalMessage = output + "HIT"
-            ClientComputer.sentToALL(generalMessage, game.getPlayersList())
+            ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE")
             return True
 
         generalMessage = output + "STAND"
 
-        ClientComputer.sentToALL(generalMessage, game.getPlayersList())
+        ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE")
 
         return False
 
@@ -91,7 +91,7 @@ class GameMain():
                 output += "\33[33mRESET\33[0m\n"
                 house.resetHand()
                 return self.houseGame(house, game)
-            print(house.getPlayerDeck(0))
+            output += str(house.getPlayerDeck(0))
             if int(x) >= 17:
                 if int(x) == 21:
                     # print("\033[32m" + str(x) + "\033[0m")
@@ -104,7 +104,9 @@ class GameMain():
                     # print("\033[34m" + str(x) + "\033[0m")
                     output += "\033[34m" + str(x) + "\033[0m\n"
                 print(output)
-                ClientComputer.sentToALL(output, game.getPlayersList())
+
+
+                ClientComputer.sentToALL(output, game.getPlayersList(), "END")
                 return x
             else:
                 card = game.GenerateCard()
@@ -118,7 +120,7 @@ class GameMain():
         else:
 
             output = ""
-            allPossibleValue = player.calculateValue(player.getPlayerDeck())
+            allPossibleValue = player.calculateValue(player.getPlayerDeck(0))
             # print(f"Your cards player {player.getPlayerNumber()} -> ")
 
             output += f"Your cards player {player.getPlayerNumber()} -> \n"
@@ -146,7 +148,8 @@ class GameMain():
 
         doubleHandList.pop(0)
         player.setPlayerTwoHandList(doubleHandList)
-        print(doubleHandList)
+        output = str(doubleHandList)
+        ClientComputer.sentMessage(output, player.getIp(), player.getPort(),"NONE")
         self.doubleHandHitStand(player, game)
 
     def doubleHandHitStand(self, player, game):
@@ -167,13 +170,18 @@ class GameMain():
     def hitCard(self, player, game, lstIdx):
         playerNumber = player.getPlayerNumber()
         hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)
+        output = ""
         while hitFlag:
             card = game.GenerateCard()
             player.addCard(card, lstIdx)
-            print("\033[36m" + card + "\033[0m")
+            # print("\033[36m" + card + "\033[0m")
+            output += "\033[36m" + card + "\033[0m"
             if player.checkAllBuss(player.getPlayerDeck(lstIdx)):
                 value = player.calculateValue(player.getPlayerDeck(lstIdx))
-                print(f"\033[31mBUST: {value} \033[0m")
+                # print(f"\033[31mBUST: {value} \033[0m")
+                output += f"\033[31mBUST: {value} \033[0m"
+                ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+                print(output)
                 return True
 
             hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)

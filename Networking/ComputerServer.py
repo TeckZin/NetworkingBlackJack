@@ -53,16 +53,15 @@ class ComputerServer():
         house = Player.Player(True, amountOfPlayers, socket.gethostname(), port)
 
         self.playerList.append(house)
-
+        sockFile.listen(30)
         while True:
-            sockFile.listen(30)
 
             cs, addr = sockFile.accept()
 
             print(addr)
             print(type(addr))
 
-            addr = socket.gethostname() # str()
+            addr = socket.gethostname()  # str()
             print(type(addr))
 
             command = cs.recv(1024).decode()
@@ -81,14 +80,13 @@ class ComputerServer():
                 sockFile.close()
                 self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerList)
                 self.gameStart = True
+                break
 
             elif amountOfPlayers > 7:
                 print("Player exceeded quit or too less")
                 sockFile.close()
 
                 break
-
-
 
     def generatePlayer(self, playerAmount, ip, port):
         player = Player.Player(False, playerAmount, ip, port)
