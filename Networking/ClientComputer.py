@@ -11,11 +11,11 @@ import socket
 
 
 # add exception into tht func for certain players
-def sentToALL(message, playersList, command):
+def sentToALL(message, playersList, command, playerNumber):
     print(playersList)
     idx = 0
     for player in playersList:
-        if idx != 0:
+        if idx != 0 or idx != playerNumber:
 
             sentMessage(message, player.getIp(), player.getPort(), command)
 

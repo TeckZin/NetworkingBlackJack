@@ -61,7 +61,7 @@ class ComputerServer():
             print(addr)
             print(type(addr))
 
-            addr = str(addr) #socket.gethostname()  # str()
+            addr = str(addr[0]) #socket.gethostname()  # str()
             print(type(addr))
 
             command = cs.recv(1024).decode()

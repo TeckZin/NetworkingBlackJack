@@ -27,7 +27,7 @@ class GameMain():
         value = self.houseGame(house, game)
 
         message = game.checkWinner(playersList, value)
-        ClientComputer.sentToALL(message, playerList, "END")
+        ClientComputer.sentToALL(message, playerList, "END", 0)
 
     def printAllValue(self, allPossibleValue, player):
         output = ""
@@ -72,12 +72,12 @@ class GameMain():
 
         if messageFlag == "True":
             generalMessage = output + "HIT"
-            ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE")
+            ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
             return True
 
         generalMessage = output + "STAND"
 
-        ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE")
+        ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
 
         return False
 
@@ -106,7 +106,7 @@ class GameMain():
                     output += "\033[34m" + str(x) + "\033[0m\n"
                 print(output)
 
-                ClientComputer.sentToALL(output, game.getPlayersList(), "NONE")
+                ClientComputer.sentToALL(output, game.getPlayersList(), "NONE", 0)
                 return x
             else:
                 card = game.GenerateCard()
@@ -164,6 +164,7 @@ class GameMain():
             self.hitCard(player, game, idx)
             idx += 1
 
+        # gobal message sent??
         ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         print(output)
 
