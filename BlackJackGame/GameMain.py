@@ -1,3 +1,4 @@
+
 from BlackJackGame import Game
 from Networking import ClientComputer
 
@@ -5,6 +6,7 @@ from Networking import ClientComputer
 class GameMain():
     def __init__(self, amountOfPlayers, playerList):
         game = Game.Game(amountOfPlayers, playerList)
+
 
         playersList = game.getPlayersList()
         for player in playersList:
