@@ -23,7 +23,10 @@ class GameMain():
 
         house = playersList[0]
 
-        print("\33[101mHOUSES TURN \033[0m")
+        # print("\33[101mHOUSES TURN \033[0m")
+        message = "\33[101mHOUSES TURN \033[0m\n"
+
+        ClientComputer.sentToALL(message, playerList, "NONE", 0)
         value = self.houseGame(house, game)
 
         message = game.checkWinner(playersList, value)
@@ -49,10 +52,8 @@ class GameMain():
 
     def hitOrStand(self, playerNumber, strike, player, lstIdx, game):
 
-        output = ""
-        if strike == 3:
-            print("STAND")
-            return False
+        output = "--------------------------------\n"
+
         allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
         # print(f"Your cards player {playerNumber} -> ")
 

@@ -46,8 +46,8 @@ class ComputerServer():
 
         sockFile.bind(('', 1234))
 
-        print(socket.gethostname())
-
+        print(socket.gethostbyname(socket.gethostname()))
+        print("gameStarted")
         print("Listening for connections")
         amountOfPlayers = 0
         house = Player.Player(True, amountOfPlayers, socket.gethostname(), port)
