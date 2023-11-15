@@ -7,7 +7,7 @@ from Networking import PlayerClient, PlayerServer
 
 
 # ip = socket.gethostname()
-ip = str(input("Enter Ip to connect"))
+ip = str(input("Enter Ip to connect: "))
 
 
 port = 1235

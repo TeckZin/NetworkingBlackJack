@@ -1,5 +1,6 @@
 import socket
 
+
 # data get send from GameMain to here to be sent of
 
 
@@ -15,17 +16,21 @@ def sentToALL(message, playersList, command, playerNumber):
     print(playersList)
     idx = 0
     for player in playersList:
-        if idx != 0 or idx != playerNumber:
-
+        print(idx)
+        print(player.getPlayerNumber(), player.getHouseFlag())
+        if idx == 0 or idx == playerNumber:
+            pass
+        else:
             sentMessage(message, player.getIp(), player.getPort(), command)
 
         idx += 1
 
 
-
 def sentMessage(message, ip, port, command):
     clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    print(ip)
     clientSocket.connect((ip, 1235))
+
     print("connected")
     clientSocket.sendall(bytes(command.encode('utf-8')))
     print(command)

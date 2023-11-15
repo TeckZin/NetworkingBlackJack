@@ -6,7 +6,7 @@ class Player():
 
     playerDeck = None
 
-    isHouse = False
+    houseFlag = False
 
     ip = str
     port = int
@@ -15,9 +15,12 @@ class Player():
         self.playerNumber = playerNumber
         self.ip = ip
         self.port = port
-        self.isHouse = houseFlag
+        self.houseFlag = houseFlag
         self.playerDeck = []
         self.playerTurn = False
+
+
+
 
     def getIp(self):
         return self.ip
@@ -46,7 +49,7 @@ class Player():
         return self.playerNumber
 
     def getHouseFlag(self):
-        return self.isHouse
+        return self.houseFlag
 
     def getCard(self, index, lstIdx):
         if lstIdx == 0:
