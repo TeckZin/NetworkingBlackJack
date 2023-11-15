@@ -43,73 +43,62 @@ class PlayerServer():
         socketServer.bind(('', port))
         END = False
         while not END:
+
+
             socketServer.listen(1000)
 
-            while True:
-                cs, addr = socketServer.accept()
+            cs, addr = socketServer.accept()
 
-                message = str(cs.recv(1000).decode())
+            message = str(cs.recv(1000).decode())
+
+            if HITORSTAND:
+                HITORSTAND = False
+                cs.sendall(bytes(self.hitOrStand(0, message).encode('utf-8')))
+                cs.close()
+
+            if NONE:
+                NONE = False
+                print(message)
+                cs.sendall(bytes('ACK'.encode('utf-8')))
+                cs.close()
+
+
+            if YESORNO:
+                YESORNO = False
+                cs.sendall(self.YESORNO(0, message).encode('utf-8'))
+                cs.close()
+
+
+            if WINNER:
+                WINNER = False
+                END = True
+                print(message)
+                cs.sendall(bytes('ACK'.encode('utf-8')))
+                cs.close()
+                socketServer.close()
 
 
 
-                if HITORSTAND:
-                    HITORSTAND = False
-                    cs.sendall(bytes(self.hitOrStand(0, message).encode('utf-8')))
-                    cs.close()
-                    break
-                if NONE:
-                    NONE = False
-                    print(message)
+            match message:
+                case "NONE":
                     cs.sendall(bytes('ACK'.encode('utf-8')))
                     cs.close()
-                    break
+                    NONE = True
 
-
-                if YESORNO:
-                    YESORNO = False
-                    cs.sendall(self.YESORNO(0, message).encode('utf-8'))
-                    cs.close()
-                    break
-
-                if WINNER:
-                    WINNER = False
-                    END = True
-                    print(message)
+                case "HITORSTAND":
                     cs.sendall(bytes('ACK'.encode('utf-8')))
                     cs.close()
-                    socketServer.close()
-                    break
+                    HITORSTAND = True
 
+                case "YORN":
+                    YESORNO = True
+                    cs.sendall(bytes('ACK'.encode('utf-8')))
+                    cs.close()
 
-                match message:
-                    case "NONE":
-                        cs.sendall(bytes('ACK'.encode('utf-8')))
-                        cs.close()
-                        NONE = True
-                        break
-                    case "HITORSTAND":
-                        cs.sendall(bytes('ACK'.encode('utf-8')))
-                        cs.close()
-                        HITORSTAND = True
-                        break
-                    case "YORN":
-                        YESORNO = True
-                        cs.sendall(bytes('ACK'.encode('utf-8')))
-                        cs.close()
-                        break
-                    case "END":
-                        WINNER = True
-                        cs.sendall(bytes('ACK'.encode('utf-8')))
-                        cs.close()
-                        break
-                    case _:
-                        END = True
-                        print(message)
-                        cs.sendall(bytes('NAK'.encode('utf-8')))
-                        cs.close()
-                        socketServer.close()
-                        break
-
+                case "END":
+                    WINNER = True
+                    cs.sendall(bytes('ACK'.encode('utf-8')))
+                    cs.close()
 
 
                         # keep writing

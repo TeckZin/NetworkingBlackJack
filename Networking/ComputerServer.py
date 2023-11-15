@@ -39,7 +39,7 @@ class ComputerServer():
 
     def startGame(self):
 
-        global packet
+
         sockFile = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
         port = 1234
@@ -53,9 +53,9 @@ class ComputerServer():
         house = Player.Player(True, amountOfPlayers, socket.gethostname(), port)
 
         self.playerList.append(house)
-        sockFile.listen(30)
-        while True:
 
+        while True:
+            sockFile.listen(30)
             cs, addr = sockFile.accept()
 
             print(addr)
@@ -70,7 +70,7 @@ class ComputerServer():
                     amountOfPlayers += 1
                     self.generatePlayer(amountOfPlayers, addr, 1234)
 
-            cs.send(bytes('Accept', 'utf-8'))
+            cs.sendall(bytes('Accept'.encode('utf-8')))
             cs.close()
 
             answer = str(input("Ready to start: "))
