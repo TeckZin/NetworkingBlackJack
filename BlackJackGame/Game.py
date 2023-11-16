@@ -1,5 +1,5 @@
 import random as random
-from ComputerNetwork import ClientComputer
+from ComputerNetwork import ComputerClient
 
 
 class Game():
@@ -56,11 +56,11 @@ class Game():
                 if not buss and houseBuss:
                     listValue[playerNum] = value
 
-                    ClientComputer.sentMessage(f"Win -> you with value: {value} House buss with: {houseValue}\n",
+                    ComputerClient.sentMessage(f"Win -> you with value: {value} House buss with: {houseValue}\n",
                                                player.getIp(), player.getPort(), "NONE")
                 elif buss and houseBuss:
                     listValue[playerNum] = value
-                    ClientComputer.sentMessage(
+                    ComputerClient.sentMessage(
                         f"Win Both buss -> you with value: {value}, House buss with value {houseValue}\n",
                         player.getIp(), player.getPort(), "NONE")
                 elif not buss and not houseBuss:
@@ -68,7 +68,7 @@ class Game():
                     if houseValue > value:
                         listValue[0] = houseValue
 
-                        ClientComputer.sentMessage(
+                        ComputerClient.sentMessage(
                             f"Lost -> you with value: {value}, House won with value {houseValue}\n", player.getIp(),
                             player.getPort(), "NONE")
 
@@ -76,14 +76,14 @@ class Game():
 
                         listValue[playerNum] = value
 
-                        ClientComputer.sentMessage(
+                        ComputerClient.sentMessage(
                             f" Win -> you with value: {value}, House lost with value {houseValue}\n", player.getIp(),
                             player.getPort(), "NONE")
                 elif buss and not houseBuss:
                     # print("here")
                     listValue[0] = houseValue
 
-                    ClientComputer.sentMessage(
+                    ComputerClient.sentMessage(
                         f"Lost with buss -> you with value: {value}, House won with value {houseValue}\n",
                         player.getIp(), player.getPort(), "NONE")
         # print("\33[4mWinnner is player ")
