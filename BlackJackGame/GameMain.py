@@ -154,6 +154,7 @@ class GameMain():
         ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         print(output)
         self.doubleHandHitStand(player, game)
+        return doubleHandList
 
     def doubleHandHitStand(self, player, game):
         output = "You have two hands\n"
@@ -191,3 +192,5 @@ class GameMain():
                 return True
 
             hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)
+
+

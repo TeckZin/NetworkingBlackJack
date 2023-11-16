@@ -1,6 +1,6 @@
-import Player
-import Game
-
+# import Player
+# import Game
+#
 
 # def hitCard(player, game, lstIdx):
 #     playerNumber = player.getPlayerNumber()
@@ -133,3 +133,51 @@ import Game
 #
 #
 # print(output)
+
+
+def doubleHandSplit(player):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = '1s'
+        doubleHandList.append([player.getCard(0, 0), card])
+
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+    output = str(doubleHandList)
+
+    # print(output)
+    print(doubleHandList)
+    return doubleHandList
+
+
+def doubleHandHitStand(player):
+    output = "You have two hands\n"
+    doubleHandList = player.getPlayerTwoHandList()
+    # print(doubleHandList)
+    idx = 1
+    for x in doubleHandList:
+        # print(f"your {idx} hand: ")
+        # print(x)
+
+        output += f"your {idx} hand: \n" + str(x) + "\n"
+
+        idx += 1
+
+    # gobal message sent??
+    # print(output)
+    return output
+
+
+def doubleHandSplit2(player):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = '1s'
+        doubleHandList.append([player.getCard(0, 0), card])
+
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+    output = str(doubleHandList)
+
+    # print(output)
+
+    return doubleHandList
