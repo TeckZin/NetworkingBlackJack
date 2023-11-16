@@ -1,5 +1,5 @@
 import random as random
-from Networking import ClientComputer
+from ComputerNetwork import ClientComputer
 
 
 class Game():

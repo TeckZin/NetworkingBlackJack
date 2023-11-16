@@ -1,5 +1,5 @@
 from BlackJackGame import Game
-from Networking import ClientComputer
+from ComputerNetwork import ClientComputer
 
 
 class GameMain():
