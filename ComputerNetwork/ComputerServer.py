@@ -76,7 +76,6 @@ class ComputerServer():
             answer = str(input("Ready to start: "))
 
             if answer.upper() == "Y" and 1 <= amountOfPlayers <= 7:
-
                 sockFile.close()
                 self.gameMain = GameMain.GameMain(amountOfPlayers + 1, self.playerList)
                 self.gameStart = True
