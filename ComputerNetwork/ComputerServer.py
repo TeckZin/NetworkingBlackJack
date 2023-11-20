@@ -2,31 +2,6 @@ import socket
 from BlackJackGame import GameMain, Player
 
 
-def listenToMessageHitorStand(port):
-    socketServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    socketServer.bind(('', port))
-
-    while True:
-        socketServer.listen(30)
-
-        cs, addr = socketServer.accept()
-
-        message = socketServer.recv(30)
-
-        message = str(message.decode('utf-8'))
-
-        cs.sendall(bytes('ACK'.encode('utf-8')))
-
-        cs.close()
-
-        socketServer.close()
-
-        if message.upper() == "HIT":
-            print("HIT")
-            return True
-        elif message.upper() == "STAND":
-            print("STAND")
-            return False
 
 
 class ComputerServer():

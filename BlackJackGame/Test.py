@@ -181,3 +181,40 @@ def doubleHandSplit2(player):
     # print(output)
 
     return doubleHandList
+def calculateValue(lst):
+    possibilities = []
+    # print(player)
+
+    for i in range(len(lst)):
+        value = getCardValue(i, lst)
+        isEmpty = len(possibilities) == 0
+        if isEmpty:
+            if value == 1:
+                if 11 not in possibilities:
+                    possibilities.append(11)
+            if value not in possibilities:
+
+                possibilities.append(value)
+        else:
+            for j in range(len(possibilities)):
+
+                sum1 = possibilities[j]
+
+                possibilities[j] = sum1 + value
+                if value == 1:
+                    if sum1 + 11 not in possibilities:
+                        print(sum1+11)
+                        possibilities.append(sum1 + 11)
+    possibilities.sort()
+    newLst = []
+    [newLst.append(x) for x in possibilities if x not in newLst]
+    return newLst
+def getCardValue(index, lst):
+    # print(lst)
+    card = lst[index]
+    # print(card)
+    number = int(card[:-1])
+    if number == 11 or number == 12 or number == 13:
+        number = 10
+    return number
+
