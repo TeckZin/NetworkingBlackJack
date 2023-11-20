@@ -1,5 +1,5 @@
 from BlackJackGame import Game
-from Networking import ClientComputer
+from ComputerNetwork import ComputerClient
 
 
 class GameMain():
@@ -14,7 +14,7 @@ class GameMain():
                 if player.checkDouble():
                     flagDouble = self.doubleHandOption(player, 0)
                     if flagDouble:
-                        self.doubleHandHitStand(player, game)
+                        self.doubleHandSplit(player, game)
                     else:
                         self.hitCard(player, game, 0)
 
@@ -23,12 +23,15 @@ class GameMain():
 
         house = playersList[0]
 
-        print("\33[101mHOUSES TURN \033[0m")
+        # print("\33[101mHOUSES TURN \033[0m")
+        message = "\33[101mHOUSES TURN \033[0m\n"
+
+        ComputerClient.sentToALL(message, playerList, "NONE", 0)
         value = self.houseGame(house, game)
 
         message = game.checkWinner(playersList, value)
         print(message)
-        ClientComputer.sentToALL(message, playerList, "END", 0)
+        ComputerClient.sentToALL(message, playerList, "END", 0)
 
     def printAllValue(self, allPossibleValue, player):
         output = ""
@@ -49,10 +52,8 @@ class GameMain():
 
     def hitOrStand(self, playerNumber, strike, player, lstIdx, game):
 
-        output = ""
-        if strike == 3:
-            print("STAND")
-            return False
+        output = "--------------------------------\n"
+
         allPossibleValue = player.calculateValue(player.getPlayerDeck(lstIdx))
         # print(f"Your cards player {playerNumber} -> ")
 
@@ -68,16 +69,16 @@ class GameMain():
 
         print(output)
 
-        messageFlag = ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "HITORSTAND")
+        messageFlag = ComputerClient.sentMessage(output, player.getIp(), player.getPort(), "HITORSTAND")
 
         if messageFlag == "True":
             generalMessage = output + "HIT"
-            ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
+            ComputerClient.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
             return True
 
         generalMessage = output + "STAND"
         print(generalMessage)
-        ClientComputer.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
+        ComputerClient.sentToALL(generalMessage, game.getPlayersList(), "NONE", playerNumber)
 
         return False
 
@@ -106,7 +107,7 @@ class GameMain():
                     output += "\033[34m" + str(x) + "\033[0m\n"
                 print(output)
 
-                ClientComputer.sentToALL(output, game.getPlayersList(), "NONE", 0)
+                ComputerClient.sentToALL(output, game.getPlayersList(), "NONE", 0)
                 return x
             else:
                 card = game.GenerateCard()
@@ -133,7 +134,7 @@ class GameMain():
 
             # send message
 
-            answer = ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "YORN")
+            answer = ComputerClient.sentMessage(output, player.getIp(), player.getPort(), "YORN")
             # answer = str(input("Do you want to split your hands [y/n]: "))
             if answer.upper() == "N":
                 return False
@@ -150,9 +151,10 @@ class GameMain():
         player.setPlayerTwoHandList(doubleHandList)
         output = str(doubleHandList)
 
-        ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+        ComputerClient.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         print(output)
         self.doubleHandHitStand(player, game)
+        return doubleHandList
 
     def doubleHandHitStand(self, player, game):
         output = "You have two hands\n"
@@ -167,7 +169,7 @@ class GameMain():
             idx += 1
 
         # gobal message sent??
-        ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+        ComputerClient.sentMessage(output, player.getIp(), player.getPort(), "NONE")
         print(output)
 
     def hitCard(self, player, game, lstIdx):
@@ -181,10 +183,14 @@ class GameMain():
             output += "\033[36m" + card + "\033[0m\n"
             if player.checkAllBuss(player.getPlayerDeck(lstIdx)):
                 value = player.calculateValue(player.getPlayerDeck(lstIdx))
+                output += str(player.getPlayerDeck(lstIdx))
+                output += "\n"
                 # print(f"\033[31mBUST: {value} \033[0m")
                 output += f"\033[31mBUST: {value} \033[0m\n"
-                ClientComputer.sentMessage(output, player.getIp(), player.getPort(), "NONE")
+                ComputerClient.sentMessage(output, player.getIp(), player.getPort(), "NONE")
                 print(output)
                 return True
 
             hitFlag = self.hitOrStand(playerNumber, 0, player, lstIdx, game)
+
+

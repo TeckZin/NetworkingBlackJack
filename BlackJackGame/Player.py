@@ -80,16 +80,27 @@ class Player():
             isEmpty = len(possibilities) == 0
             if isEmpty:
                 if value == 1:
-                    possibilities.append(11)
-                possibilities.append(value)
+                    if 11 not in possibilities:
+                        possibilities.append(11)
+                if value not in possibilities:
+
+                    possibilities.append(value)
             else:
                 for j in range(len(possibilities)):
+
                     sum1 = possibilities[j]
+
                     possibilities[j] = sum1 + value
                     if value == 1:
-                        possibilities.append(sum1 + 11)
-
+                        if sum1 + 11 not in possibilities:
+                            print(sum1+11)
+                            possibilities.append(sum1 + 11)
+        possibilities.sort()
+        newLst = []
+        [newLst.append(x) for x in possibilities if x not in newLst]
+        possibilities = newLst
         return possibilities
+
 
     def checkDouble(self):
         if len(self.getPlayerDeck(0)) == 2:

@@ -1,6 +1,6 @@
-import Player
-import Game
-
+# import Player
+# import Game
+#
 
 # def hitCard(player, game, lstIdx):
 #     playerNumber = player.getPlayerNumber()
@@ -118,18 +118,103 @@ import Game
 #
 # print(calculateValue(player))
 
-output =  ""
+# output =  ""
+#
+# playerNumber = 1
+# # print(f"Your cards player {playerNumber} -> ")
+#
+# output += f"Your cards player {playerNumber} -> \n"
+#
+# # print("all your possible values -> ", end="")
+#
+# output += "all your possible values -> "
+#
+# output += "Hello"
+#
+#
+# print(output)
 
-playerNumber = 1
-# print(f"Your cards player {playerNumber} -> ")
 
-output += f"Your cards player {playerNumber} -> \n"
+def doubleHandSplit(player):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = '1s'
+        doubleHandList.append([player.getCard(0, 0), card])
 
-# print("all your possible values -> ", end="")
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+    output = str(doubleHandList)
 
-output += "all your possible values -> "
+    # print(output)
+    print(doubleHandList)
+    return doubleHandList
 
-output += "Hello"
+
+def doubleHandHitStand(player):
+    output = "You have two hands\n"
+    doubleHandList = player.getPlayerTwoHandList()
+    # print(doubleHandList)
+    idx = 1
+    for x in doubleHandList:
+        # print(f"your {idx} hand: ")
+        # print(x)
+
+        output += f"your {idx} hand: \n" + str(x) + "\n"
+
+        idx += 1
+
+    # gobal message sent??
+    # print(output)
+    return output
 
 
-print(output)
+def doubleHandSplit2(player):
+    doubleHandList = player.getPlayerTwoHandList()
+    for i in range(len(doubleHandList) + 1):
+        card = '1s'
+        doubleHandList.append([player.getCard(0, 0), card])
+
+    doubleHandList.pop(0)
+    player.setPlayerTwoHandList(doubleHandList)
+    output = str(doubleHandList)
+
+    # print(output)
+
+    return doubleHandList
+def calculateValue(lst):
+    possibilities = []
+    # print(player)
+
+    for i in range(len(lst)):
+        value = getCardValue(i, lst)
+        isEmpty = len(possibilities) == 0
+        if isEmpty:
+            if value == 1:
+                if 11 not in possibilities:
+                    possibilities.append(11)
+            if value not in possibilities:
+
+                possibilities.append(value)
+        else:
+            for j in range(len(possibilities)):
+
+                sum1 = possibilities[j]
+
+                possibilities[j] = sum1 + value
+                if value == 1:
+                    if sum1 + 11 not in possibilities:
+                        print(sum1+11)
+                        possibilities.append(sum1 + 11)
+    possibilities.sort()
+    newLst = []
+    [newLst.append(x) for x in possibilities if x not in newLst]
+    return newLst
+def getCardValue(index, lst):
+    # print(lst)
+    card = lst[index]
+    # print(card)
+    number = int(card[:-1])
+    if number == 11 or number == 12 or number == 13:
+        number = 10
+    return number
+

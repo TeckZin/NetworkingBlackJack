@@ -52,16 +52,19 @@ class PlayerServer():
 
             if HITORSTAND:
                 HITORSTAND = False
+                print("YOUR TURN")
                 cs.sendall(bytes(self.hitOrStand(0, message).encode('utf-8')))
                 cs.close()
 
             if NONE:
                 NONE = False
+                print("GENEREAL MESSAGE \n--------------------------------")
                 print(message)
                 cs.sendall(bytes('ACK'.encode('utf-8')))
                 cs.close()
 
             if YESORNO:
+                print("YOUR TURN")
                 YESORNO = False
                 cs.sendall(self.YESORNO(0, message).encode('utf-8'))
                 cs.close()

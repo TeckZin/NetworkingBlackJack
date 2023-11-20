@@ -1,5 +1,6 @@
 # import socket
-from Networking import PlayerClient, PlayerServer
+import PlayerClient
+import PlayerServer
 
 # Comp to player -> port 1234 comp servre 1234
 

@@ -12,6 +12,8 @@ import socket
 
 
 # add exception into tht func for certain players
+
+
 def sentToALL(message, playersList, command, playerNumber):
     print(playersList)
     idx = 0
